@@ -2,6 +2,7 @@ package proyectomundial;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -22,6 +23,11 @@ import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.category.DefaultCategoryDataset;
 import proyectomundial.DAO.AuditoriaDAO;
 import proyectomundial.DAO.ResultadoDAO;
 import proyectomundial.DAO.SeleccionDAO;
@@ -460,6 +466,9 @@ public class GUIManual extends JFrame {
         String[] Respuesta4Columnas = {"Nacionalidad", "Cantidad"};
         String[][] Respuesta4Relleno = seleccionDAO.mayorCantidadNacionalidad();
         JTable Respuesta4 = new JTable(Respuesta4Relleno, Respuesta4Columnas);
+        ///////Aqui va el grafico
+        
+        Columna2.add(crearRankingGrafica(Respuesta4Relleno));
         
         Respuesta3.setText(""+seleccionDAO.getCantidadNacionalidades());
         
@@ -490,6 +499,32 @@ public class GUIManual extends JFrame {
         
         jPanelMain.repaint();
         jPanelMain.revalidate();        
+    }
+    
+    private ChartPanel crearRankingGrafica(String [][] contenido){
+        DefaultCategoryDataset datos = new DefaultCategoryDataset();
+        
+        for(int i = 0; i < contenido.length; i++) {
+            //System.out.println(contenido[i][0]);
+            datos.setValue(Integer.parseInt(contenido[i][1]), ("#"+i), contenido[i][0]);
+        }
+        
+        JFreeChart grafico_barras = ChartFactory.createBarChart3D(
+        "Ranking de nacionalidades de directores técnicos",
+        "Directores Tecnicos",
+        "Cantidad",
+        datos,
+        PlotOrientation.VERTICAL,
+        true,
+        true,
+        false
+        );
+        
+        ChartPanel panel = new ChartPanel(grafico_barras);
+        panel.setMouseWheelEnabled(true);
+        panel.setPreferredSize(new Dimension(620,135));
+        
+        return panel;
     }
     
     
