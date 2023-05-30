@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -421,75 +422,98 @@ public class GUIManual extends JFrame {
         
         JPanel seleccionesPanel = new JPanel();
         
-        JPanel Columna1 = new JPanel();
-        Columna1.setLayout(new BoxLayout(Columna1, BoxLayout.Y_AXIS));
+        JPanel Punto1 = new JPanel();
+        Punto1.setLayout(new BoxLayout(Punto1, BoxLayout.Y_AXIS));
         
-        JPanel Columna2 = new JPanel();
-        Columna2.setLayout(new BoxLayout(Columna2, BoxLayout.Y_AXIS));
+        JPanel Punto2 = new JPanel();
+        Punto2.setLayout(new BoxLayout(Punto2, BoxLayout.Y_AXIS));
+        
+        JPanel Punto3 = new JPanel();
+        Punto3.setLayout(new BoxLayout(Punto3, BoxLayout.Y_AXIS));
+        
+        JPanel Punto4 = new JPanel();
+        Punto4.setLayout(new BoxLayout(Punto4, BoxLayout.Y_AXIS));
+        
+        //Punto 1
+        JPanel ContenedorPunto1 = new JPanel();
+        ContenedorPunto1.setBackground(new java.awt.Color(0,24,47));
+        ContenedorPunto1.setLayout(new FlowLayout((int)LEFT_ALIGNMENT));
+        //ContenedorPunto1.setPreferredSize(ContenedorPunto1.getPreferredSize());
+        //ContenedorPunto1.setMaximumSize(Punto1.getMaximumSize());
         
         JLabel label = new JLabel();
-        label.setText("Total de selecciones Cargadas");
-        Columna1.add(label);
+        label.setText(" Número de selecciones");
+        label.setForeground(new java.awt.Color(249,249,250));
+        label.setFont((new Font(label.getFont().getName(),Font.BOLD,26)));
+        label.setVerticalAlignment(JLabel.TOP);
+        label.setHorizontalAlignment(JLabel.LEFT);
+        //label.setPreferredSize((new java.awt.Dimension(250,100)));
         
+        JLabel label_2 = new JLabel();
+        label_2.setText(" cargadas:");
+        label_2.setForeground(new java.awt.Color(249,249,250));
+        label_2.setFont((new Font(label_2.getFont().getName(),Font.BOLD,26)));
+        label_2.setVerticalAlignment(JLabel.TOP);
+        label_2.setHorizontalAlignment(JLabel.LEFT);
+        //label_2.setPreferredSize((new java.awt.Dimension(250,100)));
         
+        JPanel ContenedorRespuesta1 = new JPanel();
+        ContenedorRespuesta1.setBackground(new java.awt.Color(249,249,250));
+        ContenedorRespuesta1.setPreferredSize((new java.awt.Dimension(300, 118)));
+        ContenedorRespuesta1.setLayout(new BorderLayout(0, 0));
         
         JLabel Respuesta1 = new JLabel();
         Respuesta1.setText(""+seleccionDAO.getCantidadSelecciones());
-        Columna1.add(Respuesta1);
+        Respuesta1.setForeground(new java.awt.Color(0,24,47));
+        Respuesta1.setFont((new Font(label.getFont().getName(),Font.BOLD,80)));
+        Respuesta1.setVerticalAlignment(JLabel.CENTER);
+        Respuesta1.setHorizontalAlignment(JLabel.CENTER);
+        ContenedorRespuesta1.add(Respuesta1);
         
+        ContenedorPunto1.add(label);
+        ContenedorPunto1.add(label_2);
+        ContenedorPunto1.add(ContenedorRespuesta1);
+        Punto1.add(ContenedorPunto1);
         
+        //punto2
         JLabel label2 = new JLabel();
         label2.setText("Número de selecciones por continente");
-        Columna1.add(label2);
-        
-        
+        Punto2.add(label2); 
         String[] columnNames = {"Continente", "Cantidad Selecciones"};
         String[][] Relleno = seleccionDAO.cantidadSeleccionesContinente();
-
         JTable table = new JTable(Relleno, columnNames);
-        //table.setRowHeight(20);
-        
-        JLabel label3 = new JLabel();
-        label3.setText("Cantidad de nacionalidades diferentes de los directores técnicos");
-        Columna2.add(label3);
-        
-        
-        
-        JLabel Respuesta3 = new JLabel();
-        Respuesta3.setText(""+seleccionDAO.getCantidadNacionalidades());
-        Columna2.add(Respuesta3);
-        
-        JLabel label4 = new JLabel();
-        label4.setText("Ranking de nacionalidades de directores técnicos");
-        Columna2.add(label4);
-        
-        String[] Respuesta4Columnas = {"Nacionalidad", "Cantidad"};
-        String[][] Respuesta4Relleno = seleccionDAO.mayorCantidadNacionalidad();
-        JTable Respuesta4 = new JTable(Respuesta4Relleno, Respuesta4Columnas);
-        ///////Aqui va el grafico
-        
-        Columna2.add(crearRankingGrafica(Respuesta4Relleno));
-        
-        Respuesta3.setText(""+seleccionDAO.getCantidadNacionalidades());
-        
-        JScrollPane scrollPaneRespuesta4 = new JScrollPane(Respuesta4);
-        scrollPaneRespuesta4.setPreferredSize(Respuesta4.getPreferredSize());
-        scrollPaneRespuesta4.setMaximumSize((new java.awt.Dimension(620, 71)));
-        Columna2.add(scrollPaneRespuesta4);
-        
-        
-        seleccionesPanel.setLayout(new GridLayout(0, 2, 0, 0));
-        seleccionesPanel.setPreferredSize((new java.awt.Dimension(620, 410)));
-        seleccionesPanel.setMaximumSize( jPanelRight.getPreferredSize());
-        
         JScrollPane scrollPane = new JScrollPane(table);
         scrollPane.setPreferredSize(table.getPreferredSize());
         scrollPane.setMaximumSize((new java.awt.Dimension(620, 135)));
-        //seleccionesPanel.add(form);
-        Columna1.add(scrollPane);
+        Punto2.add(scrollPane);
+        
+        //Punto3
+        JLabel label3 = new JLabel();
+        label3.setText("Cantidad de nacionalidades diferentes de los directores técnicos");
+        Punto3.add(label3);
+        JLabel Respuesta3 = new JLabel();
+        Respuesta3.setText(""+seleccionDAO.getCantidadNacionalidades());
+        Punto3.add(Respuesta3);
+        
+        //Punton4
+        JLabel label4 = new JLabel();
+        label4.setText("Ranking de nacionalidades de directores técnicos");
+        Punto4.add(label4);
+        String[][] Respuesta4Relleno = seleccionDAO.mayorCantidadNacionalidad();       
+        Punto4.add(crearRankingGrafica(Respuesta4Relleno));
+        
+        
+        
+        seleccionesPanel.setLayout(new GridLayout(2, 2, 0, 0));
+        seleccionesPanel.setPreferredSize((new java.awt.Dimension(620, 410)));
+        seleccionesPanel.setMaximumSize( jPanelRight.getPreferredSize());
+        
+        
         //experimento.setText("a ");
-        seleccionesPanel.add(Columna1);
-        seleccionesPanel.add(Columna2);
+        seleccionesPanel.add(Punto1);
+        seleccionesPanel.add(Punto2);
+        seleccionesPanel.add(Punto3);
+        seleccionesPanel.add(Punto4);
         
         
         jPanelMain.removeAll();
