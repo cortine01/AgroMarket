@@ -6,9 +6,11 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.Paint;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.util.Locale;
 import java.util.Scanner;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -24,11 +26,21 @@ import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
+import javax.swing.border.Border;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.labels.PieSectionLabelGenerator;
+import org.jfree.chart.labels.StandardPieSectionLabelGenerator;
+import org.jfree.chart.plot.CategoryPlot;
+import org.jfree.chart.plot.MultiplePiePlot;
+import org.jfree.chart.plot.PiePlot;
 import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.chart.renderer.category.AreaRenderer;
+import org.jfree.chart.renderer.category.BarRenderer;
 import org.jfree.data.category.DefaultCategoryDataset;
+import org.jfree.data.general.DefaultPieDataset;
+import org.jfree.util.TableOrder;
 import proyectomundial.DAO.AuditoriaDAO;
 import proyectomundial.DAO.ResultadoDAO;
 import proyectomundial.DAO.SeleccionDAO;
@@ -422,6 +434,10 @@ public class GUIManual extends JFrame {
         
         JPanel seleccionesPanel = new JPanel();
         
+        seleccionesPanel.setLayout(new GridLayout(2, 2, 5, 5));
+        seleccionesPanel.setPreferredSize((new java.awt.Dimension(620, 410)));
+        seleccionesPanel.setMaximumSize( jPanelRight.getPreferredSize());
+        
         JPanel Punto1 = new JPanel();
         Punto1.setLayout(new BoxLayout(Punto1, BoxLayout.Y_AXIS));
         
@@ -438,8 +454,6 @@ public class GUIManual extends JFrame {
         JPanel ContenedorPunto1 = new JPanel();
         ContenedorPunto1.setBackground(new java.awt.Color(0,24,47));
         ContenedorPunto1.setLayout(new FlowLayout((int)LEFT_ALIGNMENT));
-        //ContenedorPunto1.setPreferredSize(ContenedorPunto1.getPreferredSize());
-        //ContenedorPunto1.setMaximumSize(Punto1.getMaximumSize());
         
         JLabel label = new JLabel();
         label.setText(" Número de selecciones");
@@ -447,7 +461,6 @@ public class GUIManual extends JFrame {
         label.setFont((new Font(label.getFont().getName(),Font.BOLD,26)));
         label.setVerticalAlignment(JLabel.TOP);
         label.setHorizontalAlignment(JLabel.LEFT);
-        //label.setPreferredSize((new java.awt.Dimension(250,100)));
         
         JLabel label_2 = new JLabel();
         label_2.setText(" cargadas:");
@@ -455,11 +468,10 @@ public class GUIManual extends JFrame {
         label_2.setFont((new Font(label_2.getFont().getName(),Font.BOLD,26)));
         label_2.setVerticalAlignment(JLabel.TOP);
         label_2.setHorizontalAlignment(JLabel.LEFT);
-        //label_2.setPreferredSize((new java.awt.Dimension(250,100)));
         
         JPanel ContenedorRespuesta1 = new JPanel();
         ContenedorRespuesta1.setBackground(new java.awt.Color(249,249,250));
-        ContenedorRespuesta1.setPreferredSize((new java.awt.Dimension(300, 118)));
+        ContenedorRespuesta1.setPreferredSize((new java.awt.Dimension(297, 114)));
         ContenedorRespuesta1.setLayout(new BorderLayout(0, 0));
         
         JLabel Respuesta1 = new JLabel();
@@ -476,37 +488,80 @@ public class GUIManual extends JFrame {
         Punto1.add(ContenedorPunto1);
         
         //punto2
-        JLabel label2 = new JLabel();
-        label2.setText("Número de selecciones por continente");
-        Punto2.add(label2); 
-        String[] columnNames = {"Continente", "Cantidad Selecciones"};
-        String[][] Relleno = seleccionDAO.cantidadSeleccionesContinente();
-        JTable table = new JTable(Relleno, columnNames);
-        JScrollPane scrollPane = new JScrollPane(table);
-        scrollPane.setPreferredSize(table.getPreferredSize());
-        scrollPane.setMaximumSize((new java.awt.Dimension(620, 135)));
-        Punto2.add(scrollPane);
         
-        //Punto3
+        String[][] Respuesta2Relleno = seleccionDAO.cantidadSeleccionesContinente();      
+        
+        Punto2.add(
+        crearGraficaPie(Respuesta2Relleno,
+        "Cantidad de selecciones por continente",
+        "Selecciones",
+        "Cantidad",
+        PlotOrientation.VERTICAL,
+        false,
+        false,
+        false,
+        new java.awt.Color(9,72,132)
+        ));
+        
+        //Punto3        
+        JPanel ContenedorPunto2 = new JPanel();
+        ContenedorPunto2.setBackground(new java.awt.Color(9,72,132));
+        ContenedorPunto2.setLayout(new FlowLayout((int)LEFT_ALIGNMENT));
+        
         JLabel label3 = new JLabel();
-        label3.setText("Cantidad de nacionalidades diferentes de los directores técnicos");
-        Punto3.add(label3);
+        label3.setText(" Numero de nacionalidades");
+        label3.setForeground(new java.awt.Color(249,249,250));
+        label3.setFont((new Font(label3.getFont().getName(),Font.BOLD,18)));
+        label3.setVerticalAlignment(JLabel.TOP);
+        label3.setHorizontalAlignment(JLabel.LEFT);
+        
+        JLabel label3_2 = new JLabel();
+        label3_2.setText(" diferentes entre los");
+        label3_2.setForeground(new java.awt.Color(249,249,250));
+        label3_2.setFont((new Font(label3_2.getFont().getName(),Font.BOLD,18)));
+        label3_2.setVerticalAlignment(JLabel.TOP);
+        label3_2.setHorizontalAlignment(JLabel.LEFT);
+        
+        JLabel label3_3 = new JLabel();
+        label3_3.setText(" directores tecnicos:");
+        label3_3.setForeground(new java.awt.Color(249,249,250));
+        label3_3.setFont((new Font(label3_3.getFont().getName(),Font.BOLD,18)));
+        label3_3.setVerticalAlignment(JLabel.TOP);
+        label3_3.setHorizontalAlignment(JLabel.LEFT);
+        
+        JPanel ContenedorRespuesta2 = new JPanel();
+        ContenedorRespuesta2.setBackground(new java.awt.Color(249,249,250));
+        ContenedorRespuesta2.setPreferredSize((new java.awt.Dimension(297, 105)));
+        ContenedorRespuesta2.setLayout(new BorderLayout(0, 0));
+        
         JLabel Respuesta3 = new JLabel();
         Respuesta3.setText(""+seleccionDAO.getCantidadNacionalidades());
-        Punto3.add(Respuesta3);
+        Respuesta3.setForeground(new java.awt.Color(0,24,47));
+        Respuesta3.setFont((new Font(label3.getFont().getName(),Font.BOLD,80)));
+        Respuesta3.setVerticalAlignment(JLabel.CENTER);
+        Respuesta3.setHorizontalAlignment(JLabel.CENTER);
+        ContenedorRespuesta2.add(Respuesta3);
         
-        //Punton4
-        JLabel label4 = new JLabel();
-        label4.setText("Ranking de nacionalidades de directores técnicos");
-        Punto4.add(label4);
-        String[][] Respuesta4Relleno = seleccionDAO.mayorCantidadNacionalidad();       
-        Punto4.add(crearRankingGrafica(Respuesta4Relleno));
+        ContenedorPunto2.add(label3);
+        ContenedorPunto2.add(label3_2);
+        ContenedorPunto2.add(label3_3);
+        ContenedorPunto2.add(ContenedorRespuesta2);
+        Punto3.add(ContenedorPunto2);
         
+        //Punton4        
+        String[][] Respuesta4Relleno = seleccionDAO.mayorCantidadNacionalidad();      
         
-        
-        seleccionesPanel.setLayout(new GridLayout(2, 2, 0, 0));
-        seleccionesPanel.setPreferredSize((new java.awt.Dimension(620, 410)));
-        seleccionesPanel.setMaximumSize( jPanelRight.getPreferredSize());
+        Punto4.add(
+        crearGraficaBarras(Respuesta4Relleno,
+        "Ranking de nacionalidades de directores técnicos",
+        "Directores Tecnicos",
+        "Cantidad",
+        PlotOrientation.VERTICAL,
+        false,
+        false,
+        false,
+        new java.awt.Color(18,119,217)
+        ));
         
         
         //experimento.setText("a ");
@@ -525,7 +580,7 @@ public class GUIManual extends JFrame {
         jPanelMain.revalidate();        
     }
     
-    private ChartPanel crearRankingGrafica(String [][] contenido){
+    private ChartPanel crearGraficaBarras(String contenido[][], String nombreGrafico, String nombreBarras, String nombreNumeracion, PlotOrientation Orientacion, boolean barrasColores, boolean herramientas, boolean urlGrafico, Color color){
         DefaultCategoryDataset datos = new DefaultCategoryDataset();
         
         for(int i = 0; i < contenido.length; i++) {
@@ -533,20 +588,145 @@ public class GUIManual extends JFrame {
             datos.setValue(Integer.parseInt(contenido[i][1]), ("#"+i), contenido[i][0]);
         }
         
-        JFreeChart grafico_barras = ChartFactory.createBarChart3D(
-        "Ranking de nacionalidades de directores técnicos",
-        "Directores Tecnicos",
-        "Cantidad",
+        JFreeChart grafico_barras = ChartFactory.createBarChart(
+        nombreGrafico,
+        nombreBarras,
+        nombreNumeracion,
         datos,
-        PlotOrientation.VERTICAL,
-        true,
-        true,
-        false
+        Orientacion,
+        barrasColores,
+        herramientas,
+        urlGrafico
+        );
+        
+        
+        
+        ChartPanel panel = new ChartPanel(grafico_barras);
+        panel.setMouseWheelEnabled(true);
+        //panel.setMaximumSize(new Dimension(10, 10));
+        Border bordePersonalizado = BorderFactory.createLineBorder(color, 5);
+        panel.setBorder(bordePersonalizado);
+        
+        CategoryPlot categoryPlot = grafico_barras.getCategoryPlot();
+        //categoryPlot.setRangeGridlinePaint(Color.BLUE);
+        //categoryPlot.setBackgroundPaint(Color.WHITE);
+        BarRenderer renderer = (BarRenderer) categoryPlot.getRenderer();
+        
+        int green = 24;
+        int blue = 47;
+        Color clr = new Color(0, green, blue);
+        
+        
+        for(int i = 0; i < contenido.length; i++){
+            
+            if(green >= 255 || blue >= 255) {
+                green = 24;
+                blue = 47;
+                clr = new Color(0, green, blue);
+                renderer.setSeriesPaint(i, clr);
+                
+            } else {
+                clr = new Color(0, green, blue);
+                renderer.setSeriesPaint(i, clr);
+                green += 30;
+                blue += 60;
+            }
+            
+        }
+        
+
+        ChartPanel barpChartPanel = new ChartPanel(grafico_barras);
+        barpChartPanel.removeAll();
+        
+        
+        
+        return panel;
+    }
+    
+    private ChartPanel crearGraficaTriangulos(String contenido[][], String nombreGrafico, String nombreBarras, String nombreNumeracion, PlotOrientation Orientacion, boolean barrasColores, boolean herramientas, boolean urlGrafico, Color color){
+        DefaultCategoryDataset datos = new DefaultCategoryDataset();
+        
+        for(int i = 0; i < contenido.length; i++) {
+            //System.out.println(contenido[i][0]);
+            datos.setValue(Integer.parseInt(contenido[i][1]), ("#"+i), contenido[i][0]);
+        }
+        
+        JFreeChart grafico_barras = ChartFactory.createAreaChart(
+        nombreGrafico,
+        nombreBarras,
+        nombreNumeracion,
+        datos,
+        Orientacion,
+        barrasColores,
+        herramientas,
+        urlGrafico
+        );
+        
+        
+        
+        ChartPanel panel = new ChartPanel(grafico_barras);
+        panel.setMouseWheelEnabled(true);
+        //panel.setMaximumSize(new Dimension(10, 10));
+        Border bordePersonalizado = BorderFactory.createLineBorder(color, 5);
+        panel.setBorder(bordePersonalizado);
+        
+        CategoryPlot categoryPlot = grafico_barras.getCategoryPlot();
+        //categoryPlot.setRangeGridlinePaint(Color.BLUE);
+        //categoryPlot.setBackgroundPaint(Color.WHITE);
+        AreaRenderer renderer = (AreaRenderer) categoryPlot.getRenderer();
+        
+        int green = 24;
+        int blue = 47;
+        Color clr = new Color(0, green, blue);
+        
+        
+        for(int i = 0; i < contenido.length; i++){
+            
+            if(green >= 255 || blue >= 255) {
+                green = 24;
+                blue = 47;
+                clr = new Color(0, green, blue);
+                renderer.setSeriesPaint(i, clr);
+                
+            } else {
+                clr = new Color(0, green, blue);
+                renderer.setSeriesPaint(i, clr);
+                green += 30;
+                blue += 60;
+            }
+            
+        }
+        
+
+        ChartPanel barpChartPanel = new ChartPanel(grafico_barras);
+        barpChartPanel.removeAll();
+        
+        
+        
+        return panel;
+    }
+    
+    private ChartPanel crearGraficaPie(String contenido[][], String nombreGrafico, String nombreBarras, String nombreNumeracion, PlotOrientation Orientacion, boolean barrasColores, boolean herramientas, boolean urlGrafico, Color color){
+        DefaultPieDataset datos = new DefaultPieDataset();
+
+        
+        for(int i = 0; i < contenido.length; i++) {
+            //System.out.println(contenido[i][0]);
+            datos.setValue(contenido[i][0], Integer.parseInt(contenido[i][1]));
+        }
+        
+        JFreeChart grafico_barras = ChartFactory.createPieChart(
+                nombreBarras,
+                datos,
+                urlGrafico,
+                urlGrafico,
+                Locale.ITALY
         );
         
         ChartPanel panel = new ChartPanel(grafico_barras);
         panel.setMouseWheelEnabled(true);
-        panel.setPreferredSize(new Dimension(620,135));
+        Border bordePersonalizado = BorderFactory.createLineBorder(color, 5);
+        panel.setBorder(bordePersonalizado);
         
         return panel;
     }
