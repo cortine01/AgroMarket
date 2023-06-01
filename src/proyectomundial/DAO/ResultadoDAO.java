@@ -267,7 +267,7 @@ public class ResultadoDAO {
             if(result.next()) {
                 resultado[0] = result.getString("equipo");
                 resultado[1] = result.getString("goles");
-                retorno = resultado[0] +" cantidad de goles: "+ resultado[1];
+                retorno = "<html>"+resultado[0] +"<br/>"+ resultado[1] + "</html>";
             }
             
             
@@ -301,7 +301,7 @@ public class ResultadoDAO {
             if(result.next()) {
                 resultado[0] = result.getString("equipo");
                 resultado[1] = result.getString("goles");
-                retorno = resultado[0] +" cantidad de goles: "+ resultado[1];
+                retorno = "<html>"+resultado[0] +"<br/>"+ resultado[1] + "</html>";
             }
             
             
@@ -335,7 +335,7 @@ public class ResultadoDAO {
             if(result.next()) {
                 resultado[0] = result.getString("continente");
                 resultado[1] = result.getString("goles");
-                retorno = resultado[0] +" cantidad de goles: "+ resultado[1];
+                retorno = "<html>"+resultado[0] +"<br/>"+ resultado[1] + "</html>";
             }
             
             
@@ -369,7 +369,7 @@ public class ResultadoDAO {
             if(result.next()) {
                 resultado[0] = result.getString("continente");
                 resultado[1] = result.getString("goles");
-                retorno = resultado[0] +" cantidad de goles: "+ resultado[1];
+                retorno = "<html>"+resultado[0] +"<br/>"+ resultado[1] + "</html>";
             }
             
             
@@ -404,7 +404,7 @@ public class ResultadoDAO {
             if(result.next()) {
                 resultado[0] = result.getString("equipo");
                 resultado[1] = result.getString("puntos");
-                retorno = resultado[0] +" cantidad de puntos: "+ resultado[1];
+                retorno = "<html>"+resultado[0] +"<br/>"+ resultado[1] + "</html>";
             }
             
             
@@ -439,7 +439,7 @@ public class ResultadoDAO {
             if(result.next()) {
                 resultado[0] = result.getString("equipo");
                 resultado[1] = result.getString("puntos");
-                retorno = resultado[0] +" cantidad de puntos: "+ resultado[1];
+                retorno = "<html>"+resultado[0] +"<br/>"+ resultado[1] + "</html>";
             }
             
             
