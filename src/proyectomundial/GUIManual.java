@@ -42,24 +42,11 @@ import org.jfree.chart.renderer.category.BarRenderer;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.DefaultPieDataset;
 import org.jfree.util.TableOrder;
-import proyectomundial.DAO.AuditoriaDAO;
-import proyectomundial.DAO.ResultadoDAO;
-import proyectomundial.DAO.SeleccionDAO;
-import proyectomundial.model.Resultados;
-import proyectomundial.model.Seleccion;
+import proyectomundial.util.ConexionOracle;
 
 public class GUIManual extends JFrame {
     
-    /*
-    
-        Bryan Esteban Cortine Pertuz
-        Anny Camila Jaimes Esquibel
-    
-    */
-
-    SeleccionDAO seleccionDAO = new SeleccionDAO();
-    ResultadoDAO resultadoDAO = new ResultadoDAO();
-    AuditoriaDAO auditoriaDAO = new AuditoriaDAO();
+    ConexionOracle conn = new ConexionOracle();
     
     
     // Matrix que permite almancenar la información de las selecciones futbol cargadas
@@ -122,6 +109,9 @@ public class GUIManual extends JFrame {
     
     
     private void initComponents() {
+        
+        
+        conn.desconectar();
 
         // Inicializamos componentes del Menu Lateral
         jPanelLeft = new JPanel();
@@ -165,8 +155,6 @@ public class GUIManual extends JFrame {
         
         // Pinta la opción de Menú del dahboard de resultados
         pintarMenuDashboardRes();
-        
-        pintarAuditoria();
         
         // Pinta y ajuste diseño del contenedor del panel izquierdo
         pintarPanelIzquierdo();
@@ -232,7 +220,6 @@ public class GUIManual extends JFrame {
      */
     private void accionHome() {
         jLabelTop.setText("Home");
-        auditoriaDAO.Incrementador("Home");
         //jLabelTopDescription.setText("Bievenido al sistema de gestión de mundiales de fútbol");
 
         jPanelMain.removeAll();
@@ -274,50 +261,13 @@ public class GUIManual extends JFrame {
         });
     }
     
-    /**
-     * Función que se ejecuta cuando el usuario hace click sobre la opción de navegación Selecciones
-     * Permite ver la lista de selecciones que se encuentran cargadas en la aplicación. 
-     * Si la lista de selecciones en vacía, muestra un botón que permite cargar un archivo CSV
-     * con la información de las selelecciones
-     */
     private void accionSelecciones() {
         jLabelTop.setText("Selecciones");
-        auditoriaDAO.Incrementador("Selecciones");
-        selecciones = seleccionDAO.getSeleccionesMatriz();
+        pintarTablaSelecciones();
         
-        // Si no hay selecciones cargadas, muestra el botón de carga de selecciones
-        if (selecciones == null) {
-            jPanelMain.removeAll();
-            JPanel seleccionesPanel = new JPanel();
-
-            JLabel notSelecciones = new JLabel();
-            notSelecciones.setText("No hay selecciones cargadas, por favor cargue selecciones \n\n");
-            seleccionesPanel.add(notSelecciones);
-
-            JButton cargarFile = new JButton();
-            cargarFile.setText("Seleccione el archivo");
-            seleccionesPanel.add(cargarFile);
-            cargarFile.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent evt) {
-                    cargarFileSelecciones();
-                }
-            });
-
-            jPanelMain.add(seleccionesPanel);
-            jPanelMain.repaint();
-            jPanelMain.revalidate();
-        }
-        // Si hay selecciones cargadas, llama el método que permite pintar la tabla de selecciones
-        else {
-            pintarTablaSelecciones();
-        }
     }
     
-    /**
-     * Función que se encarga de ajustar los elementos gráficos que componente la opción de navegación de RESULTADOS
-     * Define estilos, etiquetas, iconos que decoran la opción del Menú. 
-     * Esta opción de Menu permite mostrar los diferentes resultados de los partidos de la fase de grupos de un mundial
-     */
+    
     private void pintarMenuResultados() {
         btnResultados.setIcon(new ImageIcon(getClass().getResource("/resources/icons/resultados.png"))); // NOI18N
         btnResultados.setText("Resultados");
@@ -347,38 +297,8 @@ public class GUIManual extends JFrame {
      */
     private void accionResultados() {
         jLabelTop.setText("Resultados");
-        auditoriaDAO.Incrementador("Resultados");
-        resultados = resultadoDAO.getResultadosMatriz();
+        pintarTablaResultados();
 
-        // Si no hay resultados cargados, muestra el botón de carga de resultados
-        if (resultados == null) {
-            jPanelMain.removeAll();
-            JPanel resultadosPanel = new JPanel();
-
-            if (resultados == null) {
-
-                JLabel notResultados = new JLabel();
-                notResultados.setText("No hay resultados, por favor cargue resultados \n\n");
-                resultadosPanel.add(notResultados);
-
-                JButton cargarFile = new JButton();
-                cargarFile.setText("Seleccione el archivo");
-                resultadosPanel.add(cargarFile);
-                cargarFile.addActionListener(new ActionListener() {
-                    public void actionPerformed(ActionEvent evt) {
-                        cargarFileResultados();
-                    }
-                });
-            }
-
-            jPanelMain.add(resultadosPanel);
-            jPanelMain.repaint();
-            jPanelMain.revalidate();
-        }
-        // Si hay ressultados cargados, llama el método que permite pintar la tabla de resultados
-        else {
-            pintarTablaResultados();
-        }
     }
     
     
@@ -418,8 +338,6 @@ public class GUIManual extends JFrame {
         private void accionDashboardSel() {
         
         jLabelTop.setText("Dashboard Selecciones");
-        
-        auditoriaDAO.Incrementador("Dash Selecciones");
         
         JTextArea a = new JTextArea();
         a.setText("En esta sección, teniendo en cuenta los datos que fueron cargados en la matriz de selecciones \n"
@@ -476,7 +394,7 @@ public class GUIManual extends JFrame {
         ContenedorRespuesta1.setLayout(new BorderLayout(0, 0));
         
         JLabel Respuesta1 = new JLabel();
-        Respuesta1.setText(""+seleccionDAO.getCantidadSelecciones());
+        Respuesta1.setText("12"); //El Texto Va aqui
         Respuesta1.setForeground(new java.awt.Color(0,24,47));
         Respuesta1.setFont((new Font(label.getFont().getName(),Font.BOLD,80)));
         Respuesta1.setVerticalAlignment(JLabel.CENTER);
@@ -489,8 +407,8 @@ public class GUIManual extends JFrame {
         Punto1.add(ContenedorPunto1);
         
         //punto2
-        
-        String[][] Respuesta2Relleno = seleccionDAO.cantidadSeleccionesContinente();      
+        /*
+        String[][] Respuesta2Relleno = null;      
         
         Punto2.add(
         crearGraficaPie(Respuesta2Relleno,
@@ -503,6 +421,7 @@ public class GUIManual extends JFrame {
         false,
         new java.awt.Color(9,72,132)
         ));
+        */
         
         //Punto3        
         JPanel ContenedorPunto2 = new JPanel();
@@ -536,7 +455,7 @@ public class GUIManual extends JFrame {
         ContenedorRespuesta2.setLayout(new BorderLayout(0, 0));
         
         JLabel Respuesta3 = new JLabel();
-        Respuesta3.setText(""+seleccionDAO.getCantidadNacionalidades());
+        Respuesta3.setText("23"); //Texto va aqui
         Respuesta3.setForeground(new java.awt.Color(0,24,47));
         Respuesta3.setFont((new Font(label3.getFont().getName(),Font.BOLD,80)));
         Respuesta3.setVerticalAlignment(JLabel.CENTER);
@@ -549,8 +468,9 @@ public class GUIManual extends JFrame {
         ContenedorPunto2.add(ContenedorRespuesta2);
         Punto3.add(ContenedorPunto2);
         
+        /*
         //Punton4        
-        String[][] Respuesta4Relleno = seleccionDAO.mayorCantidadNacionalidad();      
+        String[][] Respuesta4Relleno = null;      
         
         Punto4.add(
         crearGraficaBarras(Respuesta4Relleno,
@@ -563,7 +483,7 @@ public class GUIManual extends JFrame {
         false,
         new java.awt.Color(18,119,217)
         ));
-        
+        */
         
         //experimento.setText("a ");
         seleccionesPanel.add(Punto1);
@@ -771,8 +691,6 @@ public class GUIManual extends JFrame {
         
         jLabelTop.setText("Dashboard Resultados");
         
-        auditoriaDAO.Incrementador("Dash Resultados");
-        
         JTextArea a = new JTextArea();
         a.setText("En esta sección, teniendo en cuenta los datos que fueron cargados en la matriz de resultados \n"
                 + "se deben mostrar los siguientes datos:\n\n"
@@ -854,7 +772,7 @@ public class GUIManual extends JFrame {
         ContenedorRespuesta1.setLayout(new BorderLayout(0, 0));
         
         JLabel Respuesta1 = new JLabel();
-        Respuesta1.setText(""+resultadoDAO.getCantidadResultados());
+        Respuesta1.setText(""); //texto va aqui
         Respuesta1.setForeground(new java.awt.Color(0,24,47));
         Respuesta1.setFont((new Font(punto1.getFont().getName(),Font.BOLD,80)));
         Respuesta1.setVerticalAlignment(JLabel.CENTER);
@@ -893,7 +811,7 @@ public class GUIManual extends JFrame {
         
         DecimalFormat df = new DecimalFormat("#.##");
         df.setDecimalSeparatorAlwaysShown(false);
-        String numeroTruncado = df.format(resultadoDAO.getPromedioGoles());
+        String numeroTruncado = "3";
         
         JLabel Respuesta2 = new JLabel();
         Respuesta2.setText(numeroTruncado);
@@ -947,24 +865,24 @@ public class GUIManual extends JFrame {
         Border bordeRespuesta3_2 = BorderFactory.createLineBorder(new java.awt.Color(4, 61, 119), 5);
         ContenedorRespuesta3_2.setBorder(bordeRespuesta3_2);
         
-        JLabel respuesta31 = new JLabel();
-        String VRespuesta3[] = resultadoDAO.getpartidoMayorGoles();
+        /*JLabel respuesta31 = new JLabel();
+        String VRespuesta3[] = null;
         respuesta31.setText("<html><div style='text-align: center;'>"+VRespuesta3[0] + " <br/>" + VRespuesta3[1]+ " <br/>" + VRespuesta3[2]+ " <br/>" + VRespuesta3[3]+"</div></html>");
         respuesta31.setForeground(new java.awt.Color(4, 61, 119));
         respuesta31.setFont((new Font(respuesta31.getFont().getName(),Font.BOLD,18)));
         respuesta31.setVerticalAlignment(JLabel.CENTER);
-        respuesta31.setHorizontalAlignment(JLabel.CENTER);
+        respuesta31.setHorizontalAlignment(JLabel.CENTER);*/
         
-        JLabel respuesta32 = new JLabel();
-        String V2Respuesta32[] = resultadoDAO.getpartidoMenorGoles();
+        /*JLabel respuesta32 = new JLabel();
+        String V2Respuesta32[] = null;
         respuesta32.setText("<html><div style='text-align: center;'>"+V2Respuesta32[0] + " <br/>" + V2Respuesta32[1]+ " <br/>" + V2Respuesta32[2]+ " <br/>" + V2Respuesta32[3]+"</div></html>");
         respuesta32.setForeground(new java.awt.Color(4, 61, 119));
         respuesta32.setFont((new Font(respuesta32.getFont().getName(),Font.BOLD,18)));
         respuesta32.setVerticalAlignment(JLabel.CENTER);
-        respuesta32.setHorizontalAlignment(JLabel.CENTER);
+        respuesta32.setHorizontalAlignment(JLabel.CENTER);*/
         
-        ContenedorRespuesta3.add(respuesta31);
-        ContenedorRespuesta3_2.add(respuesta32);
+        //ContenedorRespuesta3.add(respuesta31);
+        //ContenedorRespuesta3_2.add(respuesta32);
         ContenedorPunto3.add(punto3);
         ContenedorPunto3.add(punto3_2);
         ContenedorPunto3.add(ContenedorRespuesta3);
@@ -1010,14 +928,14 @@ public class GUIManual extends JFrame {
         ContenedorRespuesta4_2.setBorder(bordeRespuesta4_2);
         
         JLabel respuesta41 = new JLabel();
-        respuesta41.setText("<html><div style='text-align: center;'>"+resultadoDAO.getCantidadEmpateGanador()[1]+"</div></html>");
+        respuesta41.setText("<html><div style='text-align: center;'>"+0+"</div></html>");
         respuesta41.setForeground(new java.awt.Color(7, 80, 155));
         respuesta41.setFont((new Font(respuesta41.getFont().getName(),Font.BOLD,80)));
         respuesta41.setVerticalAlignment(JLabel.CENTER);
         respuesta41.setHorizontalAlignment(JLabel.CENTER);
         
         JLabel respuesta42 = new JLabel();
-        respuesta42.setText("<html><div style='text-align: center;'>"+resultadoDAO.getCantidadEmpateGanador()[0]+"</div></html>");
+        respuesta42.setText("<html><div style='text-align: center;'>"+0+"</div></html>");
         respuesta42.setForeground(new java.awt.Color(7, 80, 155));
         respuesta42.setFont((new Font(respuesta42.getFont().getName(),Font.BOLD,80)));
         respuesta42.setVerticalAlignment(JLabel.CENTER);
@@ -1071,14 +989,14 @@ public class GUIManual extends JFrame {
         ContenedorRespuesta5_2.setBorder(bordeRespuesta5_2);
         
         JLabel respuesta51 = new JLabel();
-        respuesta51.setText("<html><div style='text-align: center;'>"+resultadoDAO.getSeleccionMayorGoles()+"</div></html>");
+        respuesta51.setText("<html><div style='text-align: center;'>"+0+"</div></html>");
         respuesta51.setForeground(new java.awt.Color(9, 98, 191));
         respuesta51.setFont((new Font(respuesta51.getFont().getName(),Font.BOLD,32)));
         respuesta51.setVerticalAlignment(JLabel.CENTER);
         respuesta51.setHorizontalAlignment(JLabel.CENTER);
         
         JLabel respuesta52 = new JLabel();
-        respuesta52.setText("<html><div style='text-align: center;'>"+resultadoDAO.getSeleccionMenorGoles()+"</div></html>");
+        respuesta52.setText("<html><div style='text-align: center;'>"+0+"</div></html>");
         respuesta52.setForeground(new java.awt.Color(9, 98, 191));
         respuesta52.setFont((new Font(respuesta52.getFont().getName(),Font.BOLD,32)));
         respuesta52.setVerticalAlignment(JLabel.CENTER);
@@ -1131,14 +1049,14 @@ public class GUIManual extends JFrame {
         ContenedorRespuesta6_2.setBorder(bordeRespuesta6_2);
         
         JLabel respuesta61 = new JLabel();
-        respuesta61.setText("<html><div style='text-align: center;'>"+resultadoDAO.getSeleccionMayorPuntos()+"</div></html>");
+        respuesta61.setText("<html><div style='text-align: center;'>"+0+"</div></html>");
         respuesta61.setForeground(new java.awt.Color(11, 117, 227));
         respuesta61.setFont((new Font(respuesta61.getFont().getName(),Font.BOLD,32)));
         respuesta61.setVerticalAlignment(JLabel.CENTER);
         respuesta61.setHorizontalAlignment(JLabel.CENTER);
         
         JLabel respuesta62 = new JLabel();
-        respuesta62.setText("<html><div style='text-align: center;'>"+resultadoDAO.getSeleccionMenorPuntos()+"</div></html>");
+        respuesta62.setText("<html><div style='text-align: center;'>"+0+"</div></html>");
         respuesta62.setForeground(new java.awt.Color(11, 117, 227));
         respuesta62.setFont((new Font(respuesta62.getFont().getName(),Font.BOLD,32)));
         respuesta62.setVerticalAlignment(JLabel.CENTER);
@@ -1191,14 +1109,14 @@ public class GUIManual extends JFrame {
         ContenedorRespuesta7_2.setBorder(bordeRespuesta7_2);
         
         JLabel respuesta71 = new JLabel();
-        respuesta71.setText("<html><div style='text-align: center;'>"+resultadoDAO.getContinenteMayorGoles()+"</div></html>");
+        respuesta71.setText("<html><div style='text-align: center;'>"+0+"</div></html>");
         respuesta71.setForeground(new java.awt.Color(18, 119, 217));
         respuesta71.setFont((new Font(respuesta71.getFont().getName(),Font.BOLD,22)));
         respuesta71.setVerticalAlignment(JLabel.CENTER);
         respuesta71.setHorizontalAlignment(JLabel.CENTER);
         
         JLabel respuesta72 = new JLabel();
-        respuesta72.setText("<html><div style='text-align: center;'>"+resultadoDAO.getContinenteMenorGoles()+"</div></html>");
+        respuesta72.setText("<html><div style='text-align: center;'>"+0+"</div></html>");
         respuesta72.setForeground(new java.awt.Color(18, 119, 217));
         respuesta72.setFont((new Font(respuesta72.getFont().getName(),Font.BOLD,22)));
         respuesta72.setVerticalAlignment(JLabel.CENTER);
@@ -1221,57 +1139,7 @@ public class GUIManual extends JFrame {
         jPanelMain.revalidate();        
     }
     
-    private void pintarAuditoria() {
-        btnAuditoria.setIcon(new ImageIcon(getClass().getResource("/resources/icons/resultados.png"))); // NOI18N
-        btnAuditoria.setText("Auditoria");
-        btnAuditoria.setForeground(new java.awt.Color(255, 255, 255));
-        
-        JLabel vacioResultados = new JLabel();
-        jPanelMenuAuditoria.setBackground(new java.awt.Color(17, 41, 63));
-        jPanelMenuAuditoria.setPreferredSize((new java.awt.Dimension(220, 35)));
-        jPanelMenuAuditoria.setLayout(new BorderLayout(15, 0));
-        jPanelMenuAuditoria.add(vacioResultados, BorderLayout.WEST);
-        jPanelMenuAuditoria.add(btnAuditoria, BorderLayout.CENTER);
-        jPanelMenu.add(jPanelMenuAuditoria);
-        
-        btnAuditoria.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                accionAuditoria();
-            }
-        });
-    }
     
-    private void accionAuditoria() {
-         
-        jLabelTop.setText("Auditoria");
-        
-        JPanel Contenido = new JPanel();
-        Contenido.setLayout(new BoxLayout(Contenido, BoxLayout.Y_AXIS));
-        
-        JLabel label4 = new JLabel();
-        label4.setText("Cantidad de visitas a las paginas");
-        Contenido.add(label4);
-        
-        String[] Respuesta4Columnas = {"Pagina", "contador"};
-        String[][] Respuesta4Relleno = auditoriaDAO.Mostrar();
-        JTable Respuesta4 = new JTable(Respuesta4Relleno, Respuesta4Columnas);
-        Contenido.add(Respuesta4);
-        
-        JScrollPane scrollPaneRespuesta4 = new JScrollPane(Respuesta4);
-        scrollPaneRespuesta4.setPreferredSize((new java.awt.Dimension(620, 103)));
-        scrollPaneRespuesta4.setMaximumSize((new java.awt.Dimension(620, 103)));
-        Contenido.add(scrollPaneRespuesta4);
-        
-        jPanelMain.removeAll();
-        jPanelMain.add(Contenido, BorderLayout.PAGE_START);
-        jPanelMain.repaint();
-        jPanelMain.revalidate();
-    }
-    
-    /**
-     * Función que permite darle estilos y agregar los componentes gráficos del contendor de la parte 
-     * izquierda de la interfaz, dónde se visulaiza el menú de navegaación
-     */
     private void pintarPanelIzquierdo() {
         // Se elimina el color de fondo del panel del menú
         jPanelMenu.setOpaque(false);
@@ -1289,99 +1157,10 @@ public class GUIManual extends JFrame {
     }
     
     
-    /**
-     * Función que permite leer un archivo y procesar el contenido que tiene en cada una de sus líneas
-     * El contenido del archivo es procesado y cargado en la matriz de selecciones. Una vez la información se carga 
-     * en la atriz, se hace un llamado a la función pintarTablaSelecciones() que se encarga de pintar en la interfaz 
-     * una tabla con la información almacenada en la matriz de selecciones
-     */
-    public void cargarFileSelecciones() {
-
-        JFileChooser cargarFile = new JFileChooser();
-        cargarFile.showOpenDialog(cargarFile);
-
-        Scanner entrada = null;
-        try {
-            // Se obtiene la ruta del archivo seleccionado
-            String ruta = cargarFile.getSelectedFile().getAbsolutePath();
-            
-            // Se obtiene el archivo y se almancena en la variable f
-            File f = new File(ruta);
-            entrada = new Scanner(f);
-            
-            // Permite que el sistema se salte la léctura de los encabzados del archivo CSV
-            entrada.nextLine();
-            
-            // Se leen cada unas de las líneas del archivo
-            while (entrada.hasNext()) {
-                String line = entrada.nextLine();
-                String[] columns = line.split(",");
-
-                Seleccion seleccion = new Seleccion(columns[1], columns[2], columns[3], columns[4]);
-                if(seleccionDAO.registrarSeleccion(seleccion)) {
-                    System.out.println("Seleccion " + seleccion.getNombre() + " registrada");
-                }
-                else {
-                    System.out.println("Error " + seleccion.getNombre());
-                }
-            }
-
-            selecciones = seleccionDAO.getSeleccionesMatriz();
-            pintarTablaSelecciones();
-
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        } finally {
-            if (entrada != null) {
-                entrada.close();
-            }
-        }
-    }
-    
-    /**
-     * Función que se encarga de pinta la tabla con la información de las selelceciones que fue cargada previamente
-     * La tabla tiene definido un encabezado con las siguentes columnas: 
-     * {"ID","Selección", "Continente", "DT", "Nacionalidad DT"}
-     * Columnas que se corresponden son la información que fue leida desde el archivo csv
-     */
     public void pintarTablaSelecciones() {
 
-        String[] columnNames = {"Selección", "Continente", "DT", "Nacionalidad DT"};
-        JTable table = new JTable(selecciones, columnNames);
+        JTable table = conn.consulta("SELECT cedula, nombre, apellido, direccion, sexo FROM clientes");
         table.setRowHeight(30);
-        
-        JPanel form = new JPanel();
-        form.setLayout(new GridLayout(4, 1, 0, 0));
-        
-        JLabel label = new JLabel();
-        label.setText("Busqueda de Equipos");
-        form.add(label);
-        
-        JTextField field = new JTextField();
-        form.add(field);
-        
-        JPanel panelBotones = new JPanel();
-        panelBotones.setLayout(new GridLayout(1, 2, 30, 0));
-        
-        JButton buscar = new JButton();
-        buscar.setText("Buscar");
-        panelBotones.add(buscar);
-        buscar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                buscarSelecciones(field.getText());
-            }
-        });
-        
-        JButton limpiar = new JButton();
-        limpiar.setText("Ver Todos");
-        panelBotones.add(limpiar);
-        limpiar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                //selecciones = seleccionDAO.getSeleccionesMatriz();
-                pintarTablaSelecciones();
-            }
-        });
-        form.add(panelBotones);
         
         JPanel seleccionesPanel = new JPanel();
         seleccionesPanel.setLayout(new BoxLayout(seleccionesPanel, BoxLayout.Y_AXIS));
@@ -1389,7 +1168,6 @@ public class GUIManual extends JFrame {
         seleccionesPanel.setMaximumSize( jPanelRight.getPreferredSize());
         
         JScrollPane scrollPane = new JScrollPane(table);
-        seleccionesPanel.add(form);
         seleccionesPanel.add(scrollPane);
         
         jPanelMain.removeAll();
@@ -1397,123 +1175,13 @@ public class GUIManual extends JFrame {
         jPanelMain.repaint();
         jPanelMain.revalidate();
     }
-    
-    private void buscarSelecciones(String text) {
-        if(!text.isEmpty()) {
-            selecciones = seleccionDAO.getSeleccionesMatrizBuscado(text);
-            if(selecciones != null) {
-                pintarTablaSelecciones();
-                System.out.println("HEcho");
-            } else {
-                JOptionPane.showMessageDialog(null, "NO se encuentra lo que buscas", "Error", JOptionPane.ERROR_MESSAGE);
 
-            }
-            
-        } else {
-            System.out.println("Esta Vacio");
-        }
-        
-        selecciones = seleccionDAO.getSeleccionesMatriz();
-    }
     
     
-    /**
-     * Función que tiene la lógica que permite leer un archivo CSV de resultados y cargarlo 
-     * sobre la matriz resultados que se tiene definida cómo variable global. 
-     * Luego de cargar los datos en la matriz, se llama la función pintarTablaResultados() que se encarga 
-     * de visulizar el contenido de la matriz en un componente gráfico de tabla
-     */
-    public void cargarFileResultados() {
-
-        JFileChooser cargarFile = new JFileChooser();
-        cargarFile.showOpenDialog(cargarFile);
-
-        Scanner entrada = null;
-        try {
-            // Se obtiene la ruta del archivo seleccionado
-            String ruta = cargarFile.getSelectedFile().getAbsolutePath();
-            
-            // Se obtiene el archivo y se almancena en la variable f
-            File f = new File(ruta);
-            entrada = new Scanner(f);
-
-            // Permite que el sistema se salte la léctura de los encabzados del archivo CSV
-            entrada.nextLine();
-            
-            // Se iteran cada una de las líneas del archivo
-            while (entrada.hasNext()) {
-                
-                String line = entrada.nextLine();
-                String[] columns = line.split(",");
-                
-                Resultados resultado = new Resultados(columns[0], columns[1], columns[2], columns[3], columns[4], columns[5], columns[6]);
-                if(resultadoDAO.registrarResultado(resultado)) {
-                    System.out.println("Resultado " + resultado.getLocal() + " registrada");
-                } else {
-                    System.out.println("Error " + resultado.getLocal());
-                }
-            }
-            
-            resultados = resultadoDAO.getResultadosMatriz();
-            pintarTablaResultados();
-
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        } finally {
-            if (entrada != null) {
-                entrada.close();
-            }
-        }
-    }
-     
-    
-    /**
-     * Función que se encarga de pintar la tabla con la información de los resultados que fue cargada previamente
-     * La tabla tiene definido un encabezado con las siguentes columnas: 
-     * {"Grupo","Local", "Visitante", "Continente L", "Continente V", "Goles L", "Goles V"}
-     * Columnas que se corresponden son la información que fue leida desde el archivo csv
-     */
     public void pintarTablaResultados() {
 
-        String[] columnNames = {"Grupo","Local", "Visitante", "Continente L", "Continente V", "Goles L", "Goles V"};
-        JTable table = new JTable(resultados, columnNames);
+        JTable table = conn.consulta("SELECT codigo, descripcion, cant, tipo, um FROM ingredientes");
         table.setRowHeight(30);
-        
-        JPanel form = new JPanel();
-        form.setLayout(new GridLayout(4, 1, 0, 0));
-        
-        JLabel label = new JLabel();
-        label.setText("Busqueda de Resultados");
-        form.add(label);
-        
-        JTextField field = new JTextField();
-        form.add(field);
-        
-        JPanel panelBotones = new JPanel();
-        panelBotones.setLayout(new GridLayout(1, 2, 30, 0));
-        
-        JButton buscar = new JButton();
-        buscar.setText("Buscar");
-        panelBotones.add(buscar);
-        buscar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                
-                buscarResultados(field.getText());
-                System.out.println("Buscar");
-            }
-        }); 
-        
-        JButton limpiar = new JButton();
-        limpiar.setText("Ver Todos");
-        panelBotones.add(limpiar);
-        
-        limpiar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                System.out.println("limpiar");
-                pintarTablaResultados();
-            }
-        }); 
-        form.add(panelBotones);
         
         JPanel seleccionesPanel = new JPanel();
         seleccionesPanel.setLayout(new BoxLayout(seleccionesPanel, BoxLayout.Y_AXIS));
@@ -1521,7 +1189,6 @@ public class GUIManual extends JFrame {
         seleccionesPanel.setMaximumSize( jPanelRight.getPreferredSize());
         
         JScrollPane scrollPane = new JScrollPane(table);
-        seleccionesPanel.add(form);
         seleccionesPanel.add(scrollPane);
         
         jPanelMain.removeAll();
@@ -1530,30 +1197,7 @@ public class GUIManual extends JFrame {
         jPanelMain.revalidate();
     }
     
-    private void buscarResultados(String text) {
-        if(!text.isEmpty()) {
-            resultados = resultadoDAO.getResultadosMatrizBuscado(text);
-            if(resultados != null) {
-                pintarTablaResultados();
-                System.out.println("HEcho");
-            } else {
-                JOptionPane.showMessageDialog(null, "NO se encuentra lo que buscas", "Error", JOptionPane.ERROR_MESSAGE);
-
-            }
-            
-        } else {
-            System.out.println("Esta Vacio");
-        }
-        
-        resultados = resultadoDAO.getResultadosMatriz();
-    }
     
-    
-    /**
-     * Función que permite darle estilos y agregar los componentes gráficos del contendor de la parte 
-     * derecha de la interfaz, dónde se visulaiza de manera dinámica el contenido de cada una de las funciones
-     * que puede realizar el usuario sobre la aplicación. 
-     */
     private void pintarPanelDerecho() {
         
         // Define las dimensiones del panel
