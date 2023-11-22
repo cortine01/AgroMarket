@@ -2,6 +2,7 @@ package proyectomundial;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import static java.awt.Component.LEFT_ALIGNMENT;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -75,8 +76,8 @@ public class GUIManual extends JFrame {
     private JPanel jPanelMenuResultados;
     private JLabel btnResultados;
     
-    private JPanel jPanelMenuDashboardSel;
-    private JLabel btnDashboardSel;
+    private JPanel jPanelMenuNotificaciones;
+    private JLabel btnNotificaciones;
     
     private JPanel jPanelMenuDashboardRes;
     private JLabel btnDashboardRes;
@@ -129,8 +130,8 @@ public class GUIManual extends JFrame {
         jPanelMenuResultados = new JPanel();
         btnResultados = new JLabel();
         
-        jPanelMenuDashboardSel = new JPanel();
-        btnDashboardSel = new JLabel();
+        jPanelMenuNotificaciones = new JPanel();
+        btnNotificaciones = new JLabel();
         
         jPanelMenuDashboardRes = new JPanel();
         btnDashboardRes = new JLabel();
@@ -151,7 +152,7 @@ public class GUIManual extends JFrame {
         pintarMenuResultados();
         
         // Pinta la opción de Menú del dashboard de equipo
-        pintarMenuDashboardSel();
+        pintarMenuNotificaciones();
         
         // Pinta la opción de Menú del dahboard de resultados
         pintarMenuDashboardRes();
@@ -180,9 +181,9 @@ public class GUIManual extends JFrame {
     private void pintarLogo() {
         jPanelIconFIFA.add(iconFIFA);
         jPanelIconFIFA.setOpaque(false);
-        jPanelIconFIFA.setPreferredSize((new java.awt.Dimension(220, 80)));
+        jPanelIconFIFA.setPreferredSize((new java.awt.Dimension(200, 200)));
         jPanelIconFIFA.setMaximumSize(jPanelIconFIFA.getPreferredSize());
-        iconFIFA.setIcon(new ImageIcon(getClass().getResource("/resources/Easports_fifa_logo.svg.png")));
+        iconFIFA.setIcon(new ImageIcon(getClass().getResource("/resources/agro_market.png")));
         jPanelLeft.add(jPanelIconFIFA, BorderLayout.LINE_START);
         
     }
@@ -193,12 +194,12 @@ public class GUIManual extends JFrame {
      * Esta opción de Menu permite mostrar la página de bienvenida de la aplicación
      */
     private void pintarMenuHome() {
-        btnHome.setIcon(new ImageIcon(getClass().getResource("/resources/icons/home.png"))); // NOI18N
-        btnHome.setText("Inicio");
+        btnHome.setIcon(new ImageIcon(getClass().getResource("/resources/icons/user.png"))); // NOI18N
+        btnHome.setText("Home");
         btnHome.setForeground(new java.awt.Color(255, 255, 255));
         
         JLabel vacioHome = new JLabel();
-        jPanelMenuHome.setBackground(new java.awt.Color(17, 41, 63));
+        jPanelMenuHome.setBackground(new java.awt.Color(255, 0, 63));
         jPanelMenuHome.setPreferredSize((new java.awt.Dimension(220, 35)));
         jPanelMenuHome.setLayout(new BorderLayout(15, 0));
         jPanelMenuHome.add(vacioHome, BorderLayout.WEST);
@@ -219,7 +220,7 @@ public class GUIManual extends JFrame {
      * el panel de contenidos y agregar la imagen de inicio de la aplicación
      */
     private void accionHome() {
-        jLabelTop.setText("Home");
+        jLabelTop.setText("Usuario");
         //jLabelTopDescription.setText("Bievenido al sistema de gestión de mundiales de fútbol");
 
         jPanelMain.removeAll();
@@ -241,12 +242,12 @@ public class GUIManual extends JFrame {
      * Esta opción de Menu permite mostrar las selecciones de futbol cargadas en la aplicación
      */
     private void pintarMenuSelecciones() {
-        btnSelecciones.setIcon(new ImageIcon(getClass().getResource("/resources/icons/selecciones.png"))); // NOI18N
-        btnSelecciones.setText("Selecciones");
+        btnSelecciones.setIcon(new ImageIcon(getClass().getResource("/resources/icons/publis.png"))); // NOI18N
+        btnSelecciones.setText("Publicaciones");
         btnSelecciones.setForeground(new java.awt.Color(255, 255, 255));
         
         JLabel vacioSelecciones = new JLabel();
-        jPanelMenuSelecciones.setBackground(new java.awt.Color(17, 41, 63));
+        jPanelMenuSelecciones.setBackground(new java.awt.Color(2, 126, 7));
         jPanelMenuSelecciones.setPreferredSize((new java.awt.Dimension(220, 35)));
         jPanelMenuSelecciones.setLayout(new BorderLayout(15, 0));
         jPanelMenuSelecciones.add(vacioSelecciones, BorderLayout.WEST);
@@ -269,12 +270,12 @@ public class GUIManual extends JFrame {
     
     
     private void pintarMenuResultados() {
-        btnResultados.setIcon(new ImageIcon(getClass().getResource("/resources/icons/resultados.png"))); // NOI18N
-        btnResultados.setText("Resultados");
+        btnResultados.setIcon(new ImageIcon(getClass().getResource("/resources/icons/mis_publis.png"))); // NOI18N
+        btnResultados.setText("Mis Publicaciones");
         btnResultados.setForeground(new java.awt.Color(255, 255, 255));
         
         JLabel vacioResultados = new JLabel();
-        jPanelMenuResultados.setBackground(new java.awt.Color(17, 41, 63));
+        jPanelMenuResultados.setBackground(new java.awt.Color(2, 126, 7));
         jPanelMenuResultados.setPreferredSize((new java.awt.Dimension(220, 35)));
         jPanelMenuResultados.setLayout(new BorderLayout(15, 0));
         jPanelMenuResultados.add(vacioResultados, BorderLayout.WEST);
@@ -308,23 +309,23 @@ public class GUIManual extends JFrame {
      * Esta opción de Menu permite mostrar los diferentes datos que será extraidos de la información de 
      * las selecciones de futbol que fueron cargadas
      */
-    private void pintarMenuDashboardSel() {
-        btnDashboardSel.setIcon(new ImageIcon(getClass().getResource("/resources/icons/dashboard_selecciones.png")));
-        btnDashboardSel.setText("Dash Selecciones");
-        btnDashboardSel.setForeground(new java.awt.Color(255, 255, 255));
+    private void pintarMenuNotificaciones() {
+        btnNotificaciones.setIcon(new ImageIcon(getClass().getResource("/resources/icons/notis.png")));
+        btnNotificaciones.setText("Notificaciones");
+        btnNotificaciones.setForeground(new java.awt.Color(255, 255, 255));
         
-        JLabel vacioDashboardSelecciones = new JLabel();
-        jPanelMenuDashboardSel.setBackground(new java.awt.Color(17, 41, 63));
-        jPanelMenuDashboardSel.setPreferredSize((new java.awt.Dimension(220, 35)));
-        jPanelMenuDashboardSel.setLayout(new BorderLayout(15, 0));
-        jPanelMenuDashboardSel.add(vacioDashboardSelecciones, BorderLayout.WEST);
-        jPanelMenuDashboardSel.add(btnDashboardSel, BorderLayout.CENTER);
-        jPanelMenu.add(jPanelMenuDashboardSel);
+        JLabel vacioNotificacionesecciones = new JLabel();
+        jPanelMenuNotificaciones.setBackground(new java.awt.Color(2, 126, 7));
+        jPanelMenuNotificaciones.setPreferredSize((new java.awt.Dimension(220, 35)));
+        jPanelMenuNotificaciones.setLayout(new BorderLayout(15, 0));
+        jPanelMenuNotificaciones.add(vacioNotificacionesecciones, BorderLayout.WEST);
+        jPanelMenuNotificaciones.add(btnNotificaciones, BorderLayout.CENTER);
+        jPanelMenu.add(jPanelMenuNotificaciones);
         
-        btnDashboardSel.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnNotificaciones.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 System.out.println("Dashboard Selecciones");
-                accionDashboardSel();
+                accionNotificaciones();
             }
         });
     }
@@ -335,7 +336,7 @@ public class GUIManual extends JFrame {
      * Se debe módificar este método para poder calcular y pintar las diferentes informaciones que son solicitadas
      * Revise el proceso que se siguen en los demás métodos para poder actualizar la información de los paneles
      */
-        private void accionDashboardSel() {
+        private void accionNotificaciones() {
         
         jLabelTop.setText("Dashboard Selecciones");
         
@@ -662,11 +663,11 @@ public class GUIManual extends JFrame {
      */
     private void pintarMenuDashboardRes() {
         btnDashboardRes.setIcon(new ImageIcon(getClass().getResource("/resources/icons/dashboard_resultados.png")));
-        btnDashboardRes.setText("Dash Resultados");
+        btnDashboardRes.setText("Mis Publicaciones");
         btnDashboardRes.setForeground(new java.awt.Color(255, 255, 255));
         
         JLabel vacioDashboardResultados = new JLabel();
-        jPanelMenuDashboardRes.setBackground(new java.awt.Color(17, 41, 63));
+        jPanelMenuDashboardRes.setBackground(new java.awt.Color(2, 126, 7));
         jPanelMenuDashboardRes.setPreferredSize((new java.awt.Dimension(220, 35)));
         jPanelMenuDashboardRes.setLayout(new BorderLayout(15, 0));
         jPanelMenuDashboardRes.add(vacioDashboardResultados, BorderLayout.WEST);
@@ -1149,7 +1150,7 @@ public class GUIManual extends JFrame {
         
         // Se define un BoxLayot de manera vertical para los elementos del panel izquierdo
         jPanelLeft.setLayout(new BoxLayout(jPanelLeft, BoxLayout.Y_AXIS));
-        jPanelLeft.setBackground(new java.awt.Color(0, 24, 47));
+        jPanelLeft.setBackground(new java.awt.Color(1, 50, 3));
         getContentPane().add(jPanelLeft, java.awt.BorderLayout.LINE_START);
         jPanelLeft.add(jPanelMenu);
         jPanelLeft.setPreferredSize((new java.awt.Dimension(220, 540)));
