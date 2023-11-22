@@ -194,7 +194,7 @@ public class GUIManual extends JFrame {
      */
     private void pintarMenuHome() {
         btnHome.setIcon(new ImageIcon(getClass().getResource("/resources/icons/home.png"))); // NOI18N
-        btnHome.setText("Home");
+        btnHome.setText("Inicio");
         btnHome.setForeground(new java.awt.Color(255, 255, 255));
         
         JLabel vacioHome = new JLabel();
