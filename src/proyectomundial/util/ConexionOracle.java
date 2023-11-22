@@ -28,7 +28,7 @@ public class ConexionOracle {
         try {
             Class.forName("oracle.jdbc.OracleDriver"); // Driver BD
             url = "jdbc:oracle:thin:@localhost:1521:XE";
-            user = "PIZZAS";
+            user = "AgroMarket";
             pass = "unisimon2023";
             conn = DriverManager.getConnection(url, user, pass);
             System.out.println("Conectado");

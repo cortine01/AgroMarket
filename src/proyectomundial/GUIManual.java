@@ -1160,7 +1160,7 @@ public class GUIManual extends JFrame {
     
     public void pintarTablaSelecciones() {
 
-        JTable table = conn.consulta("SELECT cedula, nombre, apellido, direccion, sexo FROM clientes");
+        JTable table = conn.consulta("SELECT * FROM publicaciones_pbe");
         table.setRowHeight(30);
         
         JPanel seleccionesPanel = new JPanel();
@@ -1181,7 +1181,7 @@ public class GUIManual extends JFrame {
     
     public void pintarTablaResultados() {
 
-        JTable table = conn.consulta("SELECT codigo, descripcion, cant, tipo, um FROM ingredientes");
+        JTable table = conn.consulta("SELECT * FROM transacciones_tse");
         table.setRowHeight(30);
         
         JPanel seleccionesPanel = new JPanel();
