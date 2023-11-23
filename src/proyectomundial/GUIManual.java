@@ -278,7 +278,7 @@ public class GUIManual extends JFrame {
         
         //Crear el Panel que contiene todo y ponerle dos columnas
         JPanel resultadosPanel = new JPanel();
-        resultadosPanel.setLayout(new GridLayout(3, 3, 5, 5));
+        resultadosPanel.setLayout(new GridLayout(3, 3, 10, 5));
         resultadosPanel.setPreferredSize((new java.awt.Dimension(600, 830)));
         resultadosPanel.setMaximumSize(jPanelRight.getPreferredSize());
         
@@ -286,8 +286,8 @@ public class GUIManual extends JFrame {
         scrollResultadosPanel.setPreferredSize((new java.awt.Dimension(620, 540)));
         
         //Creacion de puntos y ponerlas en layout box
-        JPanel Punto1 = new JPanel();
-        Punto1.setLayout(new BoxLayout(Punto1, BoxLayout.Y_AXIS));
+        JPanel Producto = new JPanel();
+        Producto.setLayout(new BoxLayout(Producto, BoxLayout.Y_AXIS));
         
         JPanel Punto2 = new JPanel();
         Punto2.setLayout(new BoxLayout(Punto2, BoxLayout.Y_AXIS));
@@ -310,7 +310,7 @@ public class GUIManual extends JFrame {
         JPanel Punto8 = new JPanel();
         Punto8.setLayout(new BoxLayout(Punto8, BoxLayout.Y_AXIS));
         
-        resultadosPanel.add(Punto1);
+        resultadosPanel.add(Producto);
         resultadosPanel.add(Punto2);
         resultadosPanel.add(Punto3);
         resultadosPanel.add(Punto4);
@@ -319,42 +319,25 @@ public class GUIManual extends JFrame {
         resultadosPanel.add(Punto7);
         resultadosPanel.add(Punto8);
         
-        //Creacion Punto 1        
-        JPanel ContenedorPunto1 = new JPanel();
-        ContenedorPunto1.setBackground(new java.awt.Color(0,24,47));
-        ContenedorPunto1.setLayout(new FlowLayout((int)LEFT_ALIGNMENT));
+        //Creacion Producto        
+        JPanel ContenedorProducto = new JPanel();
+        ContenedorProducto.setBackground(new java.awt.Color(0,24,47));
+        ContenedorProducto.setLayout(new FlowLayout((int)LEFT_ALIGNMENT));
         
-        JLabel punto1 = new JLabel();
-        punto1.setText(" Número de partidos");
-        punto1.setForeground(new java.awt.Color(249,249,250));
-        punto1.setFont((new Font(punto1.getFont().getName(),Font.BOLD,26)));
-        punto1.setVerticalAlignment(JLabel.TOP);
-        punto1.setHorizontalAlignment(JLabel.LEFT);
+        JLabel productoNombre = new JLabel();
+        productoNombre.setText("<html><div style='text-align: left;'>Maiz</div></html>");
+        productoNombre.setForeground(new java.awt.Color(249,249,250));
+        productoNombre.setFont((new Font(productoNombre.getFont().getName(),Font.BOLD,26)));
+        productoNombre.setVerticalAlignment(JLabel.TOP);
+        productoNombre.setHorizontalAlignment(JLabel.LEFT);
+                
+        JLabel ImgProducto = new JLabel();
+        ImgProducto.setIcon(new ImageIcon(getClass().getResource("/resources/ImagenProductos/naruto.jpg")));
+        ImgProducto.setSize(5, 5);
         
-        JLabel punto1_2 = new JLabel();
-        punto1_2.setText(" cargados:");
-        punto1_2.setForeground(new java.awt.Color(249,249,250));
-        punto1_2.setFont((new Font(punto1_2.getFont().getName(),Font.BOLD,26)));
-        punto1_2.setVerticalAlignment(JLabel.TOP);
-        punto1_2.setHorizontalAlignment(JLabel.LEFT);
-        
-        JPanel ContenedorRespuesta1 = new JPanel();
-        ContenedorRespuesta1.setBackground(new java.awt.Color(249,249,250));
-        ContenedorRespuesta1.setPreferredSize((new java.awt.Dimension(287, 114)));
-        ContenedorRespuesta1.setLayout(new BorderLayout(0, 0));
-        
-        JLabel Respuesta1 = new JLabel();
-        Respuesta1.setText(""); //texto va aqui
-        Respuesta1.setForeground(new java.awt.Color(0,24,47));
-        Respuesta1.setFont((new Font(punto1.getFont().getName(),Font.BOLD,80)));
-        Respuesta1.setVerticalAlignment(JLabel.CENTER);
-        Respuesta1.setHorizontalAlignment(JLabel.CENTER);
-        ContenedorRespuesta1.add(Respuesta1);
-        
-        ContenedorPunto1.add(punto1);
-        ContenedorPunto1.add(punto1_2);
-        ContenedorPunto1.add(ContenedorRespuesta1);
-        Punto1.add(ContenedorPunto1);
+        ContenedorProducto.add(productoNombre);
+        ContenedorProducto.add(ImgProducto);
+        Producto.add(ContenedorProducto);
         
         //Creacion Punto 2;
         
