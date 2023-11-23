@@ -70,7 +70,7 @@ public class GUIManual extends JFrame {
     private JPanel jPanelMenuHome;
     private JLabel btnHome;
     
-    private JPanel jPanelMenuSelecciones;
+    private JPanel jPanelMenuPublicaciones;
     private JLabel btnSelecciones;
     
     private JPanel jPanelMenuResultados;
@@ -102,7 +102,7 @@ public class GUIManual extends JFrame {
         setResizable(false);
         
         // Se llama la función home para que al momento de iniciar la aplicacoón, por defecto se muestre el home
-        accionHome();
+        accionPublicaciones();
         
     }
     
@@ -122,7 +122,7 @@ public class GUIManual extends JFrame {
         jPanelMenuHome = new JPanel();
         btnHome = new JLabel();
         
-        jPanelMenuSelecciones = new JPanel();
+        jPanelMenuPublicaciones = new JPanel();
         btnSelecciones = new JLabel();
         
         jPanelMenuResultados = new JPanel();
@@ -144,7 +144,7 @@ public class GUIManual extends JFrame {
         pintarMenuHome();
         
         // Pinta la opción de Menú de las Selecciones
-        pintarMenuSelecciones();
+        pintarMenuPublicaciones();
         
         // Pinta la opción de Menú de los resultados
         pintarMenuResultados();
@@ -192,7 +192,7 @@ public class GUIManual extends JFrame {
      */
     private void pintarMenuHome() {
         btnHome.setIcon(new ImageIcon(getClass().getResource("/resources/icons/user.png"))); // NOI18N
-        btnHome.setText("Home");
+        btnHome.setText("Usuario");
         btnHome.setForeground(new java.awt.Color(255, 255, 255));
         
         JLabel vacioHome = new JLabel();
@@ -217,14 +217,12 @@ public class GUIManual extends JFrame {
      * el panel de contenidos y agregar la imagen de inicio de la aplicación
      */
     private void accionHome() {
-        //jLabelTopDescription.setText("Bievenido al sistema de gestión de mundiales de fútbol");
 
         jPanelMain.removeAll();
         JPanel homePanel = new JPanel();
         JLabel imageHome = new JLabel();
 
         imageHome.setIcon(new ImageIcon(getClass().getResource("/resources/home.jpg"))); // NOI18N
-        //imageHome.setPreferredSize(new java.awt.Dimension(810, 465));
         homePanel.add(imageHome);
 
         jPanelMain.add(homePanel, BorderLayout.CENTER);
@@ -237,45 +235,34 @@ public class GUIManual extends JFrame {
      * Define estilos, etiquetas, iconos que decoran la opción del Menú. 
      * Esta opción de Menu permite mostrar las selecciones de futbol cargadas en la aplicación
      */
-    private void pintarMenuSelecciones() {
+    private void pintarMenuPublicaciones() {
         btnSelecciones.setIcon(new ImageIcon(getClass().getResource("/resources/icons/publis.png"))); // NOI18N
         btnSelecciones.setText("Publicaciones");
         btnSelecciones.setForeground(new java.awt.Color(255, 255, 255));
         
         JLabel vacioSelecciones = new JLabel();
-        jPanelMenuSelecciones.setBackground(new java.awt.Color(2, 126, 7));
-        jPanelMenuSelecciones.setPreferredSize((new java.awt.Dimension(220, 35)));
-        jPanelMenuSelecciones.setLayout(new BorderLayout(15, 0));
-        jPanelMenuSelecciones.add(vacioSelecciones, BorderLayout.WEST);
-        jPanelMenuSelecciones.add(btnSelecciones, BorderLayout.CENTER);
-        jPanelMenu.add(jPanelMenuSelecciones);
+        jPanelMenuPublicaciones.setBackground(new java.awt.Color(2, 126, 7));
+        jPanelMenuPublicaciones.setPreferredSize((new java.awt.Dimension(220, 35)));
+        jPanelMenuPublicaciones.setLayout(new BorderLayout(15, 0));
+        jPanelMenuPublicaciones.add(vacioSelecciones, BorderLayout.WEST);
+        jPanelMenuPublicaciones.add(btnSelecciones, BorderLayout.CENTER);
+        jPanelMenu.add(jPanelMenuPublicaciones);
         
         btnSelecciones.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                System.out.println("Selecciones");
-                accionSelecciones();
+                System.out.println("Publicaciones");
+                accionPublicaciones();
             }
         });
     }
     
-    private void accionSelecciones() {
+    private void accionPublicaciones() {
         //pintarTablaSelecciones();
         
         
         
         JTextArea a = new JTextArea();
-        a.setText("En esta sección, teniendo en cuenta los datos que fueron cargados en la matriz de resultados \n"
-                + "se deben mostrar los siguientes datos:\n\n"
-                + "1. Número de partidos cargados \n"
-                + "2. Promedio de goles por partido \n"
-                + "3. Partido con más goles y partido con menos goles \n"
-                + "4. Número de partidos dónde hubo un ganador y número de partidos dónde hubo empate \n"
-                + "5. Selcción o selecciones con más goles y con menos goles \n"
-                + "6. Selección con más puntos y menos puntos \n"
-                + "7. Continente o continentes con más goles y menos goles \n"
-                + "8. Clasificados por cada grupo (Clasifican los dos primeros equipos de cada grupo) \n\n"
-                + "Utilice los diferentes componentes gráficos para construir un dashboard lo más estético posible");
-        
+
         //Crear el Panel que contiene todo y ponerle dos columnas
         JPanel resultadosPanel = new JPanel();
         resultadosPanel.setLayout(new GridLayout(3, 3, 10, 5));
