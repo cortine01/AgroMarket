@@ -99,7 +99,7 @@ public class GUIManual extends JFrame {
         // Se configuran propiedades de nuestra Ventana
         setLocationRelativeTo(null);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        //setResizable(false);
+        setResizable(false);
         
         // Se llama la función home para que al momento de iniciar la aplicacoón, por defecto se muestre el home
         accionHome();
