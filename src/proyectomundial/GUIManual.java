@@ -72,8 +72,8 @@ public class GUIManual extends JFrame {
     private JPanel jPanelMenuNotificaciones;
     private JLabel btnNotificaciones;
 
-    private JPanel jPanelMenuDashboardRes;
-    private JLabel btnDashboardRes;
+    private JPanel jPanelMenuCerrarSesion;
+    private JLabel btnCerrarSesion;
 
     private JPanel jPanelMenuAuditoria;
     private JLabel btnAuditoria;
@@ -128,8 +128,8 @@ public class GUIManual extends JFrame {
         jPanelMenuNotificaciones = new JPanel();
         btnNotificaciones = new JLabel();
 
-        jPanelMenuDashboardRes = new JPanel();
-        btnDashboardRes = new JLabel();
+        jPanelMenuCerrarSesion = new JPanel();
+        btnCerrarSesion = new JLabel();
 
         jPanelMenuAuditoria = new JPanel();
         btnAuditoria = new JLabel();
@@ -150,7 +150,7 @@ public class GUIManual extends JFrame {
         pintarMenuNotificaciones();
 
         // Pinta la opción de Menú del dahboard de resultados
-        pintarMenuDashboardRes();
+        pintarMenuCerrarSesion();
 
         // Pinta y ajuste diseño del contenedor del panel izquierdo
         pintarPanelIzquierdo();
@@ -251,8 +251,8 @@ public class GUIManual extends JFrame {
         usuarioPanel.setMaximumSize(new Dimension(600, 540));
         JLabel photoLabel = new JLabel();
         JLabel nameLabel = new JLabel("         Nombre: "+respuesta[0][1]+"");
-        JLabel contactLabel = new JLabel("  Contacto: "+respuesta[0][4]+"");
-        JLabel emailLabel = new JLabel("  Correo electrónico: " + correo);
+        JLabel contactLabel = new JLabel("Contacto: "+respuesta[0][4]+"");
+        JLabel emailLabel = new JLabel("Correo electrónico: " + correo);
         JLabel descLabel = new JLabel("        Descripción: "+respuesta[0][3]+"");
 
         // Configurar fuentes
@@ -283,6 +283,7 @@ public class GUIManual extends JFrame {
         leftBox.add(descLabel);
 
         Box rightBox = Box.createVerticalBox();
+        
         rightBox.add(contactLabel);
         rightBox.add(emailLabel);
 
@@ -297,6 +298,7 @@ public class GUIManual extends JFrame {
         jPanelMenuMisPublicaciones.setBackground(new java.awt.Color(2, 126, 7));
 
         // Agregar usuarioPanel al jPanelMain
+        //jPanelMain.setLayout(new BoxLayout(usuarioPanel, BoxLayout.X_AXIS));
         jPanelMain.add(usuarioPanel);
         jPanelMain.repaint();
         jPanelMain.revalidate();
@@ -693,23 +695,23 @@ public class GUIManual extends JFrame {
         jPanelMain.revalidate();
     }
 
-    private void pintarMenuDashboardRes() {
-        btnDashboardRes.setIcon(new ImageIcon(getClass().getResource("/resources/icons/dashboard_resultados.png")));
-        btnDashboardRes.setText("Mis Publicaciones");
-        btnDashboardRes.setForeground(new java.awt.Color(255, 255, 255));
+    private void pintarMenuCerrarSesion() {
+        btnCerrarSesion.setIcon(new ImageIcon(getClass().getResource("/resources/icons/logout.png")));
+        btnCerrarSesion.setText("Cerrar sesión");
+        btnCerrarSesion.setForeground(new java.awt.Color(255, 255, 255));
 
         JLabel vacioDashboardResultados = new JLabel();
-        jPanelMenuDashboardRes.setBackground(new java.awt.Color(2, 126, 7));
-        jPanelMenuDashboardRes.setPreferredSize((new java.awt.Dimension(220, 35)));
-        jPanelMenuDashboardRes.setLayout(new BorderLayout(15, 0));
-        jPanelMenuDashboardRes.add(vacioDashboardResultados, BorderLayout.WEST);
-        jPanelMenuDashboardRes.add(btnDashboardRes, BorderLayout.CENTER);
-        jPanelMenu.add(jPanelMenuDashboardRes);
+        jPanelMenuCerrarSesion.setBackground(new java.awt.Color(2, 126, 7));
+        jPanelMenuCerrarSesion.setPreferredSize((new java.awt.Dimension(220, 35)));
+        jPanelMenuCerrarSesion.setLayout(new BorderLayout(15, 0));
+        jPanelMenuCerrarSesion.add(vacioDashboardResultados, BorderLayout.WEST);
+        jPanelMenuCerrarSesion.add(btnCerrarSesion, BorderLayout.CENTER);
+        jPanelMenu.add(jPanelMenuCerrarSesion);
 
-        btnDashboardRes.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnCerrarSesion.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 System.out.println("Dashboard Resultados");
-                accionDashboardRes();
+                accionCerrarSesion();
             }
         });
     }
@@ -720,9 +722,11 @@ public class GUIManual extends JFrame {
      * proceso que se siguen en los demás métodos para poder actualizar la
      * información de los paneles
      */
-    private void accionDashboardRes() {
-
-        JTextArea a = new JTextArea();
+    private void accionCerrarSesion() {
+        
+        this.dispose();
+        login.setVisible(true);
+       /* JTextArea a = new JTextArea();
         a.setText("En esta sección, teniendo en cuenta los datos que fueron cargados en la matriz de resultados \n"
                 + "se deben mostrar los siguientes datos:\n\n"
                 + "1. Número de partidos cargados \n"
@@ -907,7 +911,7 @@ public class GUIManual extends JFrame {
         respuesta32.setForeground(new java.awt.Color(4, 61, 119));
         respuesta32.setFont((new Font(respuesta32.getFont().getName(),Font.BOLD,18)));
         respuesta32.setVerticalAlignment(JLabel.CENTER);
-        respuesta32.setHorizontalAlignment(JLabel.CENTER);*/
+        respuesta32.setHorizontalAlignment(JLabel.CENTER);
         //ContenedorRespuesta3.add(respuesta31);
         //ContenedorRespuesta3_2.add(respuesta32);
         ContenedorPunto3.add(punto3);
@@ -1162,7 +1166,7 @@ public class GUIManual extends JFrame {
         jPanelMain.add(scrollResultadosPanel, BorderLayout.PAGE_START);
 
         jPanelMain.repaint();
-        jPanelMain.revalidate();
+        jPanelMain.revalidate();*/
     }
 
     private void pintarPanelDerecho() {
