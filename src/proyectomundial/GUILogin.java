@@ -5,7 +5,10 @@
 package proyectomundial;
 
 import java.awt.BorderLayout;
+import java.util.Arrays;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
+import proyectomundial.util.ConexionOracle;
 
 /**
  *
@@ -13,16 +16,16 @@ import javax.swing.ImageIcon;
  */
 public class GUILogin extends javax.swing.JFrame {
 
-    /**
-     * Creates new form GUILogin
-     */
+    ConexionOracle conn = new ConexionOracle();
+    public static  String correo = new String();
+
     public GUILogin() {
         initComponents();
         pintarLogo();
         pintarFondo();
         pintarLabel();
         this.setLocationRelativeTo(null);
-        
+
     }
 
     /**
@@ -36,9 +39,9 @@ public class GUILogin extends javax.swing.JFrame {
 
         logo = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        textField = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        jPasswordField1 = new javax.swing.JPasswordField();
+        passwordField = new javax.swing.JPasswordField();
         jLabel3 = new javax.swing.JLabel();
         back = new javax.swing.JLabel();
 
@@ -56,22 +59,27 @@ public class GUILogin extends javax.swing.JFrame {
         getContentPane().add(jLabel1);
         jLabel1.setBounds(270, 20, 110, 36);
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        textField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                textFieldActionPerformed(evt);
             }
         });
-        getContentPane().add(jTextField1);
-        jTextField1.setBounds(234, 59, 200, 30);
+        getContentPane().add(textField);
+        textField.setBounds(234, 59, 200, 30);
 
         jLabel2.setText("jLabel2");
         getContentPane().add(jLabel2);
         jLabel2.setBounds(270, 110, 110, 36);
-        getContentPane().add(jPasswordField1);
-        jPasswordField1.setBounds(230, 150, 200, 30);
+        getContentPane().add(passwordField);
+        passwordField.setBounds(230, 150, 200, 30);
 
         jLabel3.setText("jLabel1");
         jLabel3.setMinimumSize(new java.awt.Dimension(130, 38));
+        jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                accionLogin();
+            }
+        });
         getContentPane().add(jLabel3);
         jLabel3.setBounds(260, 190, 140, 38);
         getContentPane().add(back);
@@ -80,15 +88,15 @@ public class GUILogin extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void textFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_textFieldActionPerformed
 
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        
+
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -111,7 +119,7 @@ public class GUILogin extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(GUILogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        
+
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -119,39 +127,75 @@ public class GUILogin extends javax.swing.JFrame {
             }
         });
     }
-private void pintarLogo() {
+
+    private void accionLogin() {
+        GUIManual mainWindow2 = new GUIManual();
+        boolean bandera1 = false;
+        boolean bandera2 = false;
+        correo = textField.getText();
+        
+        char[] passwordChars = passwordField.getPassword();
+        String password = new String(passwordChars);
+        String[][] respuesta = conn.consulta("SELECT \"correo\", \"contrasena\" FROM usuarios_uss");
+        for (int i = 0; i < respuesta.length; i++) {
+            for (int j = 0; j < respuesta[i].length; j++) {
+                String aux = respuesta[i][j];
+                if (j == 0) {
+                    if (aux.equals(correo)) {
+                        bandera1 = true;
+                    }
+                }
+                if (j == 1) {
+                    if (Arrays.equals(aux.toCharArray(), passwordChars)) {
+                        bandera2 = true;
+                    }
+                }
+            }
+        }
+        if (bandera1 && bandera2) {
+            mainWindow2.setVisible(true);
+            this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(null, "Correo o Contraseña incorrecto, intente de nuevo.");
+        }
+
+    }
+
+    private void pintarLogo() {
         logo.setOpaque(false);
         logo.setPreferredSize((new java.awt.Dimension(150, 150)));
-        logo.setSize(200,200);
+        logo.setSize(200, 200);
         logo.setIcon(new ImageIcon(getClass().getResource("/resources/agro_market.png")));
     }
-private void pintarFondo() {
-    back.setOpaque(false);
-    back.setPreferredSize((new java.awt.Dimension(150, 150)));
-    back.setSize(450,300);   
-    back.setIcon(new ImageIcon(getClass().getResource("/resources/background.jpg")));
+
+    private void pintarFondo() {
+        back.setOpaque(false);
+        back.setPreferredSize((new java.awt.Dimension(150, 150)));
+        back.setSize(450, 300);
+        back.setIcon(new ImageIcon(getClass().getResource("/resources/background.jpg")));
     }
-private void pintarLabel() {
-    jLabel1.setOpaque(false);
-    jLabel1.setPreferredSize((new java.awt.Dimension(150, 150)));
-    jLabel1.setSize(110,36);   
-    jLabel1.setIcon(new ImageIcon(getClass().getResource("/resources/label1.jpg")));
-    jLabel2.setOpaque(false);
-    jLabel2.setPreferredSize((new java.awt.Dimension(150, 150)));
-    jLabel2.setSize(110,36);   
-    jLabel2.setIcon(new ImageIcon(getClass().getResource("/resources/label2.jpg")));
-    jLabel3.setOpaque(false);
-    jLabel3.setPreferredSize((new java.awt.Dimension(150, 150)));
-    jLabel3.setSize(130,36);   
-    jLabel3.setIcon(new ImageIcon(getClass().getResource("/resources/label3.jpg")));
+
+    private void pintarLabel() {
+        jLabel1.setOpaque(false);
+        jLabel1.setPreferredSize((new java.awt.Dimension(150, 150)));
+        jLabel1.setSize(110, 36);
+        jLabel1.setIcon(new ImageIcon(getClass().getResource("/resources/label1.jpg")));
+        jLabel2.setOpaque(false);
+        jLabel2.setPreferredSize((new java.awt.Dimension(150, 150)));
+        jLabel2.setSize(110, 36);
+        jLabel2.setIcon(new ImageIcon(getClass().getResource("/resources/label2.jpg")));
+        jLabel3.setOpaque(false);
+        jLabel3.setPreferredSize((new java.awt.Dimension(150, 150)));
+        jLabel3.setSize(130, 36);
+        jLabel3.setIcon(new ImageIcon(getClass().getResource("/resources/label3.jpg")));
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel back;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JPasswordField jPasswordField1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel logo;
+    private javax.swing.JPasswordField passwordField;
+    private javax.swing.JTextField textField;
     // End of variables declaration//GEN-END:variables
 }

@@ -41,8 +41,7 @@ import proyectomundial.util.ConexionOracle;
 public class GUIManual extends JFrame {
 
     ConexionOracle conn = new ConexionOracle();
-    
-    
+    GUILogin login = new GUILogin();
 
     // Matrix que permite almancenar la información de las selecciones futbol cargadas
     public String[][] selecciones = null;
@@ -110,8 +109,6 @@ public class GUIManual extends JFrame {
             System.out.println();
         }
 
-        
-
         // Inicializamos componentes del Menu Lateral
         jPanelLeft = new JPanel();
 
@@ -168,7 +165,7 @@ public class GUIManual extends JFrame {
         // Pinta y ajusta diseño del contenedor de contenidos
         pintarPanelDerecho();
 
-        setTitle("Mundial");
+        setTitle("AgroMarket");
         pack();
         setVisible(true);
     }
@@ -235,15 +232,28 @@ public class GUIManual extends JFrame {
     //
     private void accionUsuarios() {
         jPanelMain.removeAll();
-
+        String correo = login.correo.toString();
+        System.out.println(correo);
+        String[][] respuesta = conn.consulta("SELECT \"id\", \"usuario\", \"perfil_img\", \"descripcion\", \"celular\", \"correo\" FROM usuarios_uss\n"
+                + "WHERE \"correo\" = '" + correo + "'\n"
+                + "UNION\n"
+                + "SELECT \"id\", \"usuario\", \"perfil_img\", \"descripcion\", \"celular\", \"correo\" FROM vendedor_vdo\n"
+                + "WHERE \"correo\" = '" + correo + "'");
+        
+        for (int i = 0; i < respuesta.length; i++) {
+            for (int j = 0; j < respuesta[i].length; j++) {
+                System.out.print(respuesta[i][j] + " ");
+            }
+            System.out.println();
+        }
         // Crear componentes
         JPanel usuarioPanel = new ImagePanel("/resources/backusers.png");
         usuarioPanel.setMaximumSize(new Dimension(600, 540));
         JLabel photoLabel = new JLabel();
-        JLabel nameLabel = new JLabel("         Nombre: Juan Perez");
-        JLabel contactLabel = new JLabel("  Contacto: +123456789");
-        JLabel emailLabel = new JLabel("  Correo electrónico: juan@example.com");
-        JLabel descLabel = new JLabel("        Descripción: Descripción del usuario");
+        JLabel nameLabel = new JLabel("         Nombre: "+respuesta[0][1]+"");
+        JLabel contactLabel = new JLabel("  Contacto: "+respuesta[0][4]+"");
+        JLabel emailLabel = new JLabel("  Correo electrónico: " + correo);
+        JLabel descLabel = new JLabel("        Descripción: "+respuesta[0][3]+"");
 
         // Configurar fuentes
         Font labelFont = new Font("Monserrat", Font.BOLD, 16); // Puedes ajustar la fuente según tus preferencias
@@ -264,7 +274,7 @@ public class GUIManual extends JFrame {
         usuarioPanel.setBackground(Color.WHITE);
 
         // Cargar la imagen del usuario
-        photoLabel.setIcon(new ImageIcon(getClass().getResource("/resources/ImagenUsuario/usuariom.png")));
+        photoLabel.setIcon(new ImageIcon(getClass().getResource(respuesta[0][2])));
 
         // Crear cajas para organizar los componentes
         Box leftBox = Box.createVerticalBox();
@@ -321,14 +331,13 @@ public class GUIManual extends JFrame {
 
     private void accionPublicaciones() {
 
-       
         jPanelMain.removeAll();
         // Pintar Botones (simulado)
         jPanelMenuHome.setBackground(new java.awt.Color(2, 126, 7));
         jPanelMenuNotificaciones.setBackground(new java.awt.Color(2, 126, 7));
         jPanelMenuPublicaciones.setBackground(new java.awt.Color(255, 0, 63));
         jPanelMenuMisPublicaciones.setBackground(new java.awt.Color(2, 126, 7));
-        
+
         //Crear el Panel que contiene todo y ponerle 3 columnas
         JPanel resultadosPanel = new JPanel();
         resultadosPanel.setLayout(new GridLayout(6, 3, 10, 5));
@@ -527,7 +536,6 @@ public class GUIManual extends JFrame {
      * proceso que se siguen en los demás métodos para poder actualizar la
      * información de los paneles
      */
-
     private void accionNotificaciones() {
 // Pintar Botones (simulado)
         jPanelMenuHome.setBackground(new java.awt.Color(2, 126, 7));
