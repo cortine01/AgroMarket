@@ -30,20 +30,6 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 import javax.swing.border.Border;
-import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartPanel;
-import org.jfree.chart.JFreeChart;
-import org.jfree.chart.labels.PieSectionLabelGenerator;
-import org.jfree.chart.labels.StandardPieSectionLabelGenerator;
-import org.jfree.chart.plot.CategoryPlot;
-import org.jfree.chart.plot.MultiplePiePlot;
-import org.jfree.chart.plot.PiePlot;
-import org.jfree.chart.plot.PlotOrientation;
-import org.jfree.chart.renderer.category.AreaRenderer;
-import org.jfree.chart.renderer.category.BarRenderer;
-import org.jfree.data.category.DefaultCategoryDataset;
-import org.jfree.data.general.DefaultPieDataset;
-import org.jfree.util.TableOrder;
 import proyectomundial.util.ConexionOracle;
 
 public class GUIManual extends JFrame {
@@ -148,7 +134,7 @@ public class GUIManual extends JFrame {
         pintarMenuPublicaciones();
         
         // Pinta la opción de Menú de los resultados
-        pintarMenuResultados();
+        pintarMenuMisPublicaciones();
         
         // Pinta la opción de Menú del dashboard de equipo
         pintarMenuNotificaciones();
@@ -368,7 +354,7 @@ public class GUIManual extends JFrame {
     }
     
     
-    private void pintarMenuResultados() {
+    private void pintarMenuMisPublicaciones() {
         btnResultados.setIcon(new ImageIcon(getClass().getResource("/resources/icons/mis_publis.png"))); // NOI18N
         btnResultados.setText("Mis Publicaciones");
         btnResultados.setForeground(new java.awt.Color(255, 255, 255));
@@ -383,7 +369,7 @@ public class GUIManual extends JFrame {
         
         btnResultados.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                accionResultados();
+                accionMisPublicaciones();
             }
         });
     }
@@ -395,8 +381,81 @@ public class GUIManual extends JFrame {
      * Si la lista de resultados en vacía, muestra un botón que permite cargar un archivo CSV
      * con la información de los resultados
      */
-    private void accionResultados() {
-        pintarTablaResultados();
+    private void accionMisPublicaciones() {
+        //pintarTablaResultados();
+        JTextArea a = new JTextArea();
+        a.setText("En esta sección, teniendo en cuenta los datos que fueron cargados en la matriz de resultados \n"
+                + "se deben mostrar los siguientes datos:\n\n"
+                + "1. Número de partidos cargados \n"
+                + "2. Promedio de goles por partido \n"
+                + "3. Partido con más goles y partido con menos goles \n"
+                + "4. Número de partidos dónde hubo un ganador y número de partidos dónde hubo empate \n"
+                + "5. Selcción o selecciones con más goles y con menos goles \n"
+                + "6. Selección con más puntos y menos puntos \n"
+                + "7. Continente o continentes con más goles y menos goles \n"
+                + "8. Clasificados por cada grupo (Clasifican los dos primeros equipos de cada grupo) \n\n"
+                + "Utilice los diferentes componentes gráficos para construir un dashboard lo más estético posible");
+        
+        //Crear el Panel que contiene todo y ponerle 3 columnas
+        JPanel resultadosPanel = new JPanel();
+        resultadosPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
+        resultadosPanel.setPreferredSize(new Dimension(620, 540));
+        
+        JScrollPane scrollResultadosPanel = new JScrollPane(resultadosPanel);
+        scrollResultadosPanel.setPreferredSize((new java.awt.Dimension(620, 540)));
+        
+        for (int i = 0; i < 3; i++) {
+            //Creacion de puntos y ponerlas en layout box
+            JPanel Producto = new JPanel();
+            Producto.setLayout(new BorderLayout());
+            Producto.setPreferredSize(new Dimension(200, 200)); // Tamaño fijo
+
+            //Creacion Producto        
+            JPanel ContenedorProducto = new JPanel();
+            ContenedorProducto.setBackground(new java.awt.Color(1,50,3));
+            ContenedorProducto.setLayout(new BorderLayout());
+
+            JLabel ImgProducto = new JLabel();
+            ImageIcon icon = new ImageIcon(getClass().getResource("/resources/ImagenProductos/arroz.jpeg"));
+            Image image = icon.getImage();
+            Image newImage = image.getScaledInstance(100, 100, Image.SCALE_SMOOTH); // Ajusta el tamaño de la imagen
+            ImgProducto.setIcon(new ImageIcon(newImage));
+
+            JPanel Pro_Nombre_precio = new JPanel();
+            Pro_Nombre_precio.setLayout(new BoxLayout(Pro_Nombre_precio, BoxLayout.Y_AXIS));
+            Pro_Nombre_precio.setBackground(new java.awt.Color(2,126,7));
+
+            JLabel productoNombre = new JLabel();
+            productoNombre.setText("<html><div style='text-align: left;'>Maiz</div></html>");
+            productoNombre.setForeground(new java.awt.Color(249,249,250));
+            productoNombre.setFont((new Font(productoNombre.getFont().getName(),Font.BOLD,26)));
+
+            JLabel productoPrecio = new JLabel();
+            productoPrecio.setText("<html><div style='text-align: right;'>30000</div></html>");
+            productoPrecio.setForeground(new java.awt.Color(249,249,250));
+            productoPrecio.setFont((new Font(productoNombre.getFont().getName(),Font.BOLD,20)));
+
+            Pro_Nombre_precio.add(productoNombre);
+            Pro_Nombre_precio.add(productoPrecio);
+
+            ContenedorProducto.add(Pro_Nombre_precio, BorderLayout.SOUTH);
+            ContenedorProducto.add(ImgProducto, BorderLayout.CENTER);
+            Producto.add(ContenedorProducto);
+            
+            // Agregar un espacio entre los productos
+            ContenedorProducto.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
+            Producto.add(ContenedorProducto);
+            resultadosPanel.add(Producto);
+        }
+        
+        jPanelMain.removeAll();
+        //jPanelMain.add(a);
+        
+        jPanelMain.add(scrollResultadosPanel, BorderLayout.PAGE_START);
+        
+        jPanelMain.repaint();
+        jPanelMain.revalidate();
 
     }
     
@@ -599,165 +658,7 @@ public class GUIManual extends JFrame {
         jPanelMain.revalidate();        
     }
     
-    private ChartPanel crearGraficaBarras(String contenido[][], String nombreGrafico, String nombreBarras, String nombreNumeracion, PlotOrientation Orientacion, boolean barrasColores, boolean herramientas, boolean urlGrafico, Color color){
-        DefaultCategoryDataset datos = new DefaultCategoryDataset();
         
-        for(int i = 0; i < contenido.length; i++) {
-            //System.out.println(contenido[i][0]);
-            datos.setValue(Integer.parseInt(contenido[i][1]), ("#"+i), contenido[i][0]);
-        }
-        
-        JFreeChart grafico_barras = ChartFactory.createBarChart(
-        nombreGrafico,
-        nombreBarras,
-        nombreNumeracion,
-        datos,
-        Orientacion,
-        barrasColores,
-        herramientas,
-        urlGrafico
-        );
-        
-        
-        
-        ChartPanel panel = new ChartPanel(grafico_barras);
-        panel.setMouseWheelEnabled(true);
-        //panel.setMaximumSize(new Dimension(10, 10));
-        Border bordePersonalizado = BorderFactory.createLineBorder(color, 5);
-        panel.setBorder(bordePersonalizado);
-        
-        CategoryPlot categoryPlot = grafico_barras.getCategoryPlot();
-        //categoryPlot.setRangeGridlinePaint(Color.BLUE);
-        //categoryPlot.setBackgroundPaint(Color.WHITE);
-        BarRenderer renderer = (BarRenderer) categoryPlot.getRenderer();
-        
-        int green = 24;
-        int blue = 47;
-        Color clr = new Color(0, green, blue);
-        
-        
-        for(int i = 0; i < contenido.length; i++){
-            
-            if(green >= 255 || blue >= 255) {
-                green = 24;
-                blue = 47;
-                clr = new Color(0, green, blue);
-                renderer.setSeriesPaint(i, clr);
-                
-            } else {
-                clr = new Color(0, green, blue);
-                renderer.setSeriesPaint(i, clr);
-                green += 30;
-                blue += 60;
-            }
-            
-        }
-        
-
-        ChartPanel barpChartPanel = new ChartPanel(grafico_barras);
-        barpChartPanel.removeAll();
-        
-        
-        
-        return panel;
-    }
-    
-    private ChartPanel crearGraficaTriangulos(String contenido[][], String nombreGrafico, String nombreBarras, String nombreNumeracion, PlotOrientation Orientacion, boolean barrasColores, boolean herramientas, boolean urlGrafico, Color color){
-        DefaultCategoryDataset datos = new DefaultCategoryDataset();
-        
-        for(int i = 0; i < contenido.length; i++) {
-            //System.out.println(contenido[i][0]);
-            datos.setValue(Integer.parseInt(contenido[i][1]), ("#"+i), contenido[i][0]);
-        }
-        
-        JFreeChart grafico_barras = ChartFactory.createAreaChart(
-        nombreGrafico,
-        nombreBarras,
-        nombreNumeracion,
-        datos,
-        Orientacion,
-        barrasColores,
-        herramientas,
-        urlGrafico
-        );
-        
-        
-        
-        ChartPanel panel = new ChartPanel(grafico_barras);
-        panel.setMouseWheelEnabled(true);
-        //panel.setMaximumSize(new Dimension(10, 10));
-        Border bordePersonalizado = BorderFactory.createLineBorder(color, 5);
-        panel.setBorder(bordePersonalizado);
-        
-        CategoryPlot categoryPlot = grafico_barras.getCategoryPlot();
-        //categoryPlot.setRangeGridlinePaint(Color.BLUE);
-        //categoryPlot.setBackgroundPaint(Color.WHITE);
-        AreaRenderer renderer = (AreaRenderer) categoryPlot.getRenderer();
-        
-        int green = 24;
-        int blue = 47;
-        Color clr = new Color(0, green, blue);
-        
-        
-        for(int i = 0; i < contenido.length; i++){
-            
-            if(green >= 255 || blue >= 255) {
-                green = 24;
-                blue = 47;
-                clr = new Color(0, green, blue);
-                renderer.setSeriesPaint(i, clr);
-                
-            } else {
-                clr = new Color(0, green, blue);
-                renderer.setSeriesPaint(i, clr);
-                green += 30;
-                blue += 60;
-            }
-            
-        }
-        
-
-        ChartPanel barpChartPanel = new ChartPanel(grafico_barras);
-        barpChartPanel.removeAll();
-        
-        
-        
-        return panel;
-    }
-    
-    private ChartPanel crearGraficaPie(String contenido[][], String nombreGrafico, String nombreBarras, String nombreNumeracion, PlotOrientation Orientacion, boolean barrasColores, boolean herramientas, boolean urlGrafico, Color color){
-        DefaultPieDataset datos = new DefaultPieDataset();
-
-        
-        for(int i = 0; i < contenido.length; i++) {
-            //System.out.println(contenido[i][0]);
-            datos.setValue(contenido[i][0], Integer.parseInt(contenido[i][1]));
-        }
-        
-        JFreeChart grafico_barras = ChartFactory.createPieChart(
-                nombreBarras,
-                datos,
-                urlGrafico,
-                urlGrafico,
-                Locale.ITALY
-        );
-        
-        ChartPanel panel = new ChartPanel(grafico_barras);
-        panel.setMouseWheelEnabled(true);
-        Border bordePersonalizado = BorderFactory.createLineBorder(color, 5);
-        panel.setBorder(bordePersonalizado);
-        
-        return panel;
-    }
-    
-    
-    
-    /**
-     * Función que se encarga de ajustar los elementos gráficos que componente la opción de navegación de Dashboard de Resultados
-     * Define estilos, etiquetas, iconos que decoran la opción del Menú. 
-     * Esta opción de Menu permite mostrar los diferentes datos que será extraidos de la información de 
-     * los resultados de los partidos que fueron cargados
-     */
     private void pintarMenuDashboardRes() {
         btnDashboardRes.setIcon(new ImageIcon(getClass().getResource("/resources/icons/dashboard_resultados.png")));
         btnDashboardRes.setText("Mis Publicaciones");
