@@ -7,6 +7,7 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.Paint;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -258,419 +259,66 @@ public class GUIManual extends JFrame {
     
     private void accionPublicaciones() {
         //pintarTablaSelecciones();
-        
-        
-        
         JTextArea a = new JTextArea();
-
-        //Crear el Panel que contiene todo y ponerle dos columnas
+        a.setText("En esta sección, teniendo en cuenta los datos que fueron cargados en la matriz de resultados \n"
+                + "se deben mostrar los siguientes datos:\n\n"
+                + "1. Número de partidos cargados \n"
+                + "2. Promedio de goles por partido \n"
+                + "3. Partido con más goles y partido con menos goles \n"
+                + "4. Número de partidos dónde hubo un ganador y número de partidos dónde hubo empate \n"
+                + "5. Selcción o selecciones con más goles y con menos goles \n"
+                + "6. Selección con más puntos y menos puntos \n"
+                + "7. Continente o continentes con más goles y menos goles \n"
+                + "8. Clasificados por cada grupo (Clasifican los dos primeros equipos de cada grupo) \n\n"
+                + "Utilice los diferentes componentes gráficos para construir un dashboard lo más estético posible");
+        
+        //Crear el Panel que contiene todo y ponerle 3 columnas
         JPanel resultadosPanel = new JPanel();
-        resultadosPanel.setLayout(new GridLayout(3, 3, 10, 5));
-        resultadosPanel.setPreferredSize((new java.awt.Dimension(600, 830)));
-        resultadosPanel.setMaximumSize(jPanelRight.getPreferredSize());
+        resultadosPanel.setLayout(new GridLayout(6, 3, 10, 5));
+        //resultadosPanel.setPreferredSize((new java.awt.Dimension(600, 830)));
+        //resultadosPanel.setMaximumSize(jPanelRight.getPreferredSize());
         
         JScrollPane scrollResultadosPanel = new JScrollPane(resultadosPanel);
         scrollResultadosPanel.setPreferredSize((new java.awt.Dimension(620, 540)));
         
-        //Creacion de puntos y ponerlas en layout box
-        JPanel Producto = new JPanel();
-        Producto.setLayout(new BoxLayout(Producto, BoxLayout.Y_AXIS));
-        
-        JPanel Punto2 = new JPanel();
-        Punto2.setLayout(new BoxLayout(Punto2, BoxLayout.Y_AXIS));
-        
-        JPanel Punto3 = new JPanel();
-        Punto3.setLayout(new BoxLayout(Punto3, BoxLayout.Y_AXIS));
-        
-        JPanel Punto4 = new JPanel();
-        Punto4.setLayout(new BoxLayout(Punto4, BoxLayout.Y_AXIS));
-        
-        JPanel Punto5 = new JPanel();
-        Punto5.setLayout(new BoxLayout(Punto5, BoxLayout.Y_AXIS));
-        
-        JPanel Punto6 = new JPanel();
-        Punto6.setLayout(new BoxLayout(Punto6, BoxLayout.Y_AXIS));
-        
-        JPanel Punto7 = new JPanel();
-        Punto7.setLayout(new BoxLayout(Punto7, BoxLayout.Y_AXIS));
-        
-        JPanel Punto8 = new JPanel();
-        Punto8.setLayout(new BoxLayout(Punto8, BoxLayout.Y_AXIS));
-        
-        resultadosPanel.add(Producto);
-        resultadosPanel.add(Punto2);
-        resultadosPanel.add(Punto3);
-        resultadosPanel.add(Punto4);
-        resultadosPanel.add(Punto5);
-        resultadosPanel.add(Punto6);
-        resultadosPanel.add(Punto7);
-        resultadosPanel.add(Punto8);
-        
-        //Creacion Producto        
-        JPanel ContenedorProducto = new JPanel();
-        ContenedorProducto.setBackground(new java.awt.Color(0,24,47));
-        ContenedorProducto.setLayout(new FlowLayout((int)LEFT_ALIGNMENT));
-        
-        JLabel productoNombre = new JLabel();
-        productoNombre.setText("<html><div style='text-align: left;'>Maiz</div></html>");
-        productoNombre.setForeground(new java.awt.Color(249,249,250));
-        productoNombre.setFont((new Font(productoNombre.getFont().getName(),Font.BOLD,26)));
-        productoNombre.setVerticalAlignment(JLabel.TOP);
-        productoNombre.setHorizontalAlignment(JLabel.LEFT);
-                
-        JLabel ImgProducto = new JLabel();
-        ImgProducto.setIcon(new ImageIcon(getClass().getResource("/resources/ImagenProductos/naruto.jpg")));
-        ImgProducto.setSize(5, 5);
-        
-        ContenedorProducto.add(productoNombre);
-        ContenedorProducto.add(ImgProducto);
-        Producto.add(ContenedorProducto);
-        
-        //Creacion Punto 2;
-        
-        JPanel ContenedorPunto2 = new JPanel();
-        ContenedorPunto2.setBackground(new java.awt.Color(2, 42, 83));
-        ContenedorPunto2.setLayout(new FlowLayout((int)LEFT_ALIGNMENT));
-        
-        JLabel punto2 = new JLabel();
-        punto2.setText(" Promedio de goles");
-        punto2.setForeground(new java.awt.Color(249,249,250));
-        punto2.setFont((new Font(punto2.getFont().getName(),Font.BOLD,26)));
-        punto2.setVerticalAlignment(JLabel.TOP);
-        punto2.setHorizontalAlignment(JLabel.LEFT);
-        
-        JLabel punto2_2 = new JLabel();
-        punto2_2.setText(" por partido:");
-        punto2_2.setForeground(new java.awt.Color(249,249,250));
-        punto2_2.setFont((new Font(punto2_2.getFont().getName(),Font.BOLD,26)));
-        punto2_2.setVerticalAlignment(JLabel.TOP);
-        punto2_2.setHorizontalAlignment(JLabel.LEFT);
-        
-        JPanel ContenedorRespuesta2 = new JPanel();
-        ContenedorRespuesta2.setBackground(new java.awt.Color(249,249,250));
-        ContenedorRespuesta2.setPreferredSize((new java.awt.Dimension(297, 114)));
-        ContenedorRespuesta2.setLayout(new BorderLayout(0, 0));
-        
-        DecimalFormat df = new DecimalFormat("#.##");
-        df.setDecimalSeparatorAlwaysShown(false);
-        String numeroTruncado = "3";
-        
-        JLabel Respuesta2 = new JLabel();
-        Respuesta2.setText(numeroTruncado);
-        Respuesta2.setForeground(new java.awt.Color(2, 42, 83));
-        Respuesta2.setFont((new Font(punto2.getFont().getName(),Font.BOLD,80)));
-        Respuesta2.setVerticalAlignment(JLabel.CENTER);
-        Respuesta2.setHorizontalAlignment(JLabel.CENTER);
-        ContenedorRespuesta2.add(Respuesta2);
-        
-        ContenedorPunto2.add(punto2);
-        ContenedorPunto2.add(punto2_2);
-        ContenedorPunto2.add(ContenedorRespuesta2);
-        Punto2.add(ContenedorPunto2);
-        
-        //Creacion Punto 3
-        
-        JPanel ContenedorPunto3 = new JPanel();
-        ContenedorPunto3.setBackground(new java.awt.Color(4, 61, 119));
-        ContenedorPunto3.setLayout(new GridLayout(2, 2, 5, 5));
-        ContenedorPunto3.setPreferredSize((new java.awt.Dimension(10, 10)));
-        
-        JLabel punto3 = new JLabel();
-        punto3.setText("<html><div style='text-align: center;'>Partido con más goles</div></html>");
-        punto3.setForeground(new java.awt.Color(249,249,250));
-        punto3.setFont((new Font(punto3.getFont().getName(),Font.BOLD,22)));
-        punto3.setVerticalAlignment(JLabel.TOP);
-        punto3.setHorizontalAlignment(JLabel.CENTER);
-        Border bordePunto3 = BorderFactory.createLineBorder(new java.awt.Color(4, 61, 119), 5);
-        punto3.setBorder(bordePunto3);
-        
-        JLabel punto3_2 = new JLabel();
-        punto3_2.setText("<html><div style='text-align: center;'>Partido con menos goles</div></html>");
-        punto3_2.setForeground(new java.awt.Color(249,249,250));
-        punto3_2.setFont((new Font(punto3_2.getFont().getName(),Font.BOLD,22)));
-        punto3_2.setVerticalAlignment(JLabel.TOP);
-        punto3_2.setHorizontalAlignment(JLabel.CENTER);
-        Border bordepunto3_2 = BorderFactory.createLineBorder(new java.awt.Color(4, 61, 119), 5);
-        punto3_2.setBorder(bordepunto3_2);
-        
-        JPanel ContenedorRespuesta3 = new JPanel();
-        ContenedorRespuesta3.setBackground(new java.awt.Color(249,249,250));
-        ContenedorRespuesta3.setPreferredSize((new java.awt.Dimension(10, 10)));
-        ContenedorRespuesta3.setLayout(new BorderLayout(0, 0));
-        Border bordeRespuesta3 = BorderFactory.createLineBorder(new java.awt.Color(4, 61, 119), 5);
-        ContenedorRespuesta3.setBorder(bordeRespuesta3);
-        
-        JPanel ContenedorRespuesta3_2 = new JPanel();
-        ContenedorRespuesta3_2.setBackground(new java.awt.Color(249,249,250));
-        ContenedorRespuesta3_2.setPreferredSize((new java.awt.Dimension(10, 10)));
-        ContenedorRespuesta3_2.setLayout(new BorderLayout(0, 0));
-        Border bordeRespuesta3_2 = BorderFactory.createLineBorder(new java.awt.Color(4, 61, 119), 5);
-        ContenedorRespuesta3_2.setBorder(bordeRespuesta3_2);
-        
-        /*JLabel respuesta31 = new JLabel();
-        String VRespuesta3[] = null;
-        respuesta31.setText("<html><div style='text-align: center;'>"+VRespuesta3[0] + " <br/>" + VRespuesta3[1]+ " <br/>" + VRespuesta3[2]+ " <br/>" + VRespuesta3[3]+"</div></html>");
-        respuesta31.setForeground(new java.awt.Color(4, 61, 119));
-        respuesta31.setFont((new Font(respuesta31.getFont().getName(),Font.BOLD,18)));
-        respuesta31.setVerticalAlignment(JLabel.CENTER);
-        respuesta31.setHorizontalAlignment(JLabel.CENTER);*/
-        
-        /*JLabel respuesta32 = new JLabel();
-        String V2Respuesta32[] = null;
-        respuesta32.setText("<html><div style='text-align: center;'>"+V2Respuesta32[0] + " <br/>" + V2Respuesta32[1]+ " <br/>" + V2Respuesta32[2]+ " <br/>" + V2Respuesta32[3]+"</div></html>");
-        respuesta32.setForeground(new java.awt.Color(4, 61, 119));
-        respuesta32.setFont((new Font(respuesta32.getFont().getName(),Font.BOLD,18)));
-        respuesta32.setVerticalAlignment(JLabel.CENTER);
-        respuesta32.setHorizontalAlignment(JLabel.CENTER);*/
-        
-        //ContenedorRespuesta3.add(respuesta31);
-        //ContenedorRespuesta3_2.add(respuesta32);
-        ContenedorPunto3.add(punto3);
-        ContenedorPunto3.add(punto3_2);
-        ContenedorPunto3.add(ContenedorRespuesta3);
-        ContenedorPunto3.add(ContenedorRespuesta3_2);
-        Punto3.add(ContenedorPunto3);
-        
-        //Creacion Punto 4        
-        JPanel ContenedorPunto4 = new JPanel();
-        ContenedorPunto4.setBackground(new java.awt.Color(7, 80, 155));
-        ContenedorPunto4.setLayout(new GridLayout(2, 2, 5, 5));
-        ContenedorPunto4.setPreferredSize((new java.awt.Dimension(10, 10)));
-        
-        JLabel punto4 = new JLabel();
-        punto4.setText("<html><div style='text-align: center;'>Numero de ganadores</div></html>");
-        punto4.setForeground(new java.awt.Color(249,249,250));
-        punto4.setFont((new Font(punto4.getFont().getName(),Font.BOLD,22)));
-        punto4.setVerticalAlignment(JLabel.TOP);
-        punto4.setHorizontalAlignment(JLabel.CENTER);
-        Border bordePunto4 = BorderFactory.createLineBorder(new java.awt.Color(7, 80, 155), 5);
-        punto4.setBorder(bordePunto4);
-        
-        JLabel punto4_2 = new JLabel();
-        punto4_2.setText("<html><div style='text-align: center;'>Numero de empates</div></html>");
-        punto4_2.setForeground(new java.awt.Color(249,249,250));
-        punto4_2.setFont((new Font(punto4_2.getFont().getName(),Font.BOLD,22)));
-        punto4_2.setVerticalAlignment(JLabel.TOP);
-        punto4_2.setHorizontalAlignment(JLabel.CENTER);
-        Border bordepunto4_2 = BorderFactory.createLineBorder(new java.awt.Color(7, 80, 155), 5);
-        punto4_2.setBorder(bordepunto4_2);
-        
-        JPanel ContenedorRespuesta4 = new JPanel();
-        ContenedorRespuesta4.setBackground(new java.awt.Color(249,249,250));
-        ContenedorRespuesta4.setPreferredSize((new java.awt.Dimension(10, 10)));
-        ContenedorRespuesta4.setLayout(new BorderLayout(0, 0));
-        Border bordeRespuesta4 = BorderFactory.createLineBorder(new java.awt.Color(7, 80, 155), 5);
-        ContenedorRespuesta4.setBorder(bordeRespuesta4);
-        
-        JPanel ContenedorRespuesta4_2 = new JPanel();
-        ContenedorRespuesta4_2.setBackground(new java.awt.Color(249,249,250));
-        ContenedorRespuesta4_2.setPreferredSize((new java.awt.Dimension(10, 10)));
-        ContenedorRespuesta4_2.setLayout(new BorderLayout(0, 0));
-        Border bordeRespuesta4_2 = BorderFactory.createLineBorder(new java.awt.Color(7, 80, 155), 5);
-        ContenedorRespuesta4_2.setBorder(bordeRespuesta4_2);
-        
-        JLabel respuesta41 = new JLabel();
-        respuesta41.setText("<html><div style='text-align: center;'>"+0+"</div></html>");
-        respuesta41.setForeground(new java.awt.Color(7, 80, 155));
-        respuesta41.setFont((new Font(respuesta41.getFont().getName(),Font.BOLD,80)));
-        respuesta41.setVerticalAlignment(JLabel.CENTER);
-        respuesta41.setHorizontalAlignment(JLabel.CENTER);
-        
-        JLabel respuesta42 = new JLabel();
-        respuesta42.setText("<html><div style='text-align: center;'>"+0+"</div></html>");
-        respuesta42.setForeground(new java.awt.Color(7, 80, 155));
-        respuesta42.setFont((new Font(respuesta42.getFont().getName(),Font.BOLD,80)));
-        respuesta42.setVerticalAlignment(JLabel.CENTER);
-        respuesta42.setHorizontalAlignment(JLabel.CENTER);
-        
-        ContenedorRespuesta4.add(respuesta41);
-        ContenedorRespuesta4_2.add(respuesta42);
-        ContenedorPunto4.add(punto4);
-        ContenedorPunto4.add(punto4_2);
-        ContenedorPunto4.add(ContenedorRespuesta4);
-        ContenedorPunto4.add(ContenedorRespuesta4_2);
-        Punto4.add(ContenedorPunto4);
-        
-        //Creacion Punto 5
-        
-        JPanel ContenedorPunto5 = new JPanel();
-        ContenedorPunto5.setBackground(new java.awt.Color(9, 98, 191));
-        ContenedorPunto5.setLayout(new GridLayout(2, 2, 5, 5));
-        ContenedorPunto5.setPreferredSize((new java.awt.Dimension(10, 10)));
-        
-        JLabel punto5 = new JLabel();
-        punto5.setText("<html><div style='text-align: center;'>Selcción con más goles</div></html>");
-        punto5.setForeground(new java.awt.Color(249,249,250));
-        punto5.setFont((new Font(punto5.getFont().getName(),Font.BOLD,22)));
-        punto5.setVerticalAlignment(JLabel.TOP);
-        punto5.setHorizontalAlignment(JLabel.CENTER);
-        Border bordePunto5 = BorderFactory.createLineBorder(new java.awt.Color(9, 98, 191), 5);
-        punto5.setBorder(bordePunto5);
-        
-        JLabel punto5_2 = new JLabel();
-        punto5_2.setText("<html><div style='text-align: center;'>Selcción con menos goles</div></html>");
-        punto5_2.setForeground(new java.awt.Color(249,249,250));
-        punto5_2.setFont((new Font(punto5_2.getFont().getName(),Font.BOLD,22)));
-        punto5_2.setVerticalAlignment(JLabel.TOP);
-        punto5_2.setHorizontalAlignment(JLabel.CENTER);
-        Border bordepunto5_2 = BorderFactory.createLineBorder(new java.awt.Color(9, 98, 191), 5);
-        punto5_2.setBorder(bordepunto5_2);
-        
-        JPanel ContenedorRespuesta5 = new JPanel();
-        ContenedorRespuesta5.setBackground(new java.awt.Color(249,249,250));
-        ContenedorRespuesta5.setPreferredSize((new java.awt.Dimension(10, 10)));
-        ContenedorRespuesta5.setLayout(new BorderLayout(0, 0));
-        Border bordeRespuesta5 = BorderFactory.createLineBorder(new java.awt.Color(9, 98, 191), 5);
-        ContenedorRespuesta5.setBorder(bordeRespuesta5);
-        
-        JPanel ContenedorRespuesta5_2 = new JPanel();
-        ContenedorRespuesta5_2.setBackground(new java.awt.Color(249,249,250));
-        ContenedorRespuesta5_2.setPreferredSize((new java.awt.Dimension(10, 10)));
-        ContenedorRespuesta5_2.setLayout(new BorderLayout(0, 0));
-        Border bordeRespuesta5_2 = BorderFactory.createLineBorder(new java.awt.Color(9, 98, 191), 5);
-        ContenedorRespuesta5_2.setBorder(bordeRespuesta5_2);
-        
-        JLabel respuesta51 = new JLabel();
-        respuesta51.setText("<html><div style='text-align: center;'>"+0+"</div></html>");
-        respuesta51.setForeground(new java.awt.Color(9, 98, 191));
-        respuesta51.setFont((new Font(respuesta51.getFont().getName(),Font.BOLD,32)));
-        respuesta51.setVerticalAlignment(JLabel.CENTER);
-        respuesta51.setHorizontalAlignment(JLabel.CENTER);
-        
-        JLabel respuesta52 = new JLabel();
-        respuesta52.setText("<html><div style='text-align: center;'>"+0+"</div></html>");
-        respuesta52.setForeground(new java.awt.Color(9, 98, 191));
-        respuesta52.setFont((new Font(respuesta52.getFont().getName(),Font.BOLD,32)));
-        respuesta52.setVerticalAlignment(JLabel.CENTER);
-        respuesta52.setHorizontalAlignment(JLabel.CENTER);
-        
-        ContenedorRespuesta5.add(respuesta51);
-        ContenedorRespuesta5_2.add(respuesta52);
-        ContenedorPunto5.add(punto5);
-        ContenedorPunto5.add(punto5_2);
-        ContenedorPunto5.add(ContenedorRespuesta5);
-        ContenedorPunto5.add(ContenedorRespuesta5_2);
-        Punto5.add(ContenedorPunto5);
-        
-        //Creacion Punto 6
-        JPanel ContenedorPunto6 = new JPanel();
-        ContenedorPunto6.setBackground(new java.awt.Color(11, 117, 227));
-        ContenedorPunto6.setLayout(new GridLayout(2, 2, 5, 5));
-        ContenedorPunto6.setPreferredSize((new java.awt.Dimension(10, 10)));
-        
-        JLabel punto6 = new JLabel();
-        punto6.setText("<html><div style='text-align: center;'>Selección con más puntos</div></html>");
-        punto6.setForeground(new java.awt.Color(249,249,250));
-        punto6.setFont((new Font(punto6.getFont().getName(),Font.BOLD,22)));
-        punto6.setVerticalAlignment(JLabel.TOP);
-        punto6.setHorizontalAlignment(JLabel.CENTER);
-        Border bordePunto6 = BorderFactory.createLineBorder(new java.awt.Color(11, 117, 227), 5);
-        punto6.setBorder(bordePunto6);
-        
-        JLabel punto6_2 = new JLabel();
-        punto6_2.setText("<html><div style='text-align: center;'>Selección con menos puntos</div></html>");
-        punto6_2.setForeground(new java.awt.Color(249,249,250));
-        punto6_2.setFont((new Font(punto6_2.getFont().getName(),Font.BOLD,22)));
-        punto6_2.setVerticalAlignment(JLabel.TOP);
-        punto6_2.setHorizontalAlignment(JLabel.CENTER);
-        Border bordepunto6_2 = BorderFactory.createLineBorder(new java.awt.Color(11, 117, 227), 5);
-        punto6_2.setBorder(bordepunto6_2);
-        
-        JPanel ContenedorRespuesta6 = new JPanel();
-        ContenedorRespuesta6.setBackground(new java.awt.Color(249,249,250));
-        ContenedorRespuesta6.setPreferredSize((new java.awt.Dimension(10, 10)));
-        ContenedorRespuesta6.setLayout(new BorderLayout(0, 0));
-        Border bordeRespuesta6 = BorderFactory.createLineBorder(new java.awt.Color(11, 117, 227), 5);
-        ContenedorRespuesta6.setBorder(bordeRespuesta6);
-        
-        JPanel ContenedorRespuesta6_2 = new JPanel();
-        ContenedorRespuesta6_2.setBackground(new java.awt.Color(249,249,250));
-        ContenedorRespuesta6_2.setPreferredSize((new java.awt.Dimension(10, 10)));
-        ContenedorRespuesta6_2.setLayout(new BorderLayout(0, 0));
-        Border bordeRespuesta6_2 = BorderFactory.createLineBorder(new java.awt.Color(11, 117, 227), 5);
-        ContenedorRespuesta6_2.setBorder(bordeRespuesta6_2);
-        
-        JLabel respuesta61 = new JLabel();
-        respuesta61.setText("<html><div style='text-align: center;'>"+0+"</div></html>");
-        respuesta61.setForeground(new java.awt.Color(11, 117, 227));
-        respuesta61.setFont((new Font(respuesta61.getFont().getName(),Font.BOLD,32)));
-        respuesta61.setVerticalAlignment(JLabel.CENTER);
-        respuesta61.setHorizontalAlignment(JLabel.CENTER);
-        
-        JLabel respuesta62 = new JLabel();
-        respuesta62.setText("<html><div style='text-align: center;'>"+0+"</div></html>");
-        respuesta62.setForeground(new java.awt.Color(11, 117, 227));
-        respuesta62.setFont((new Font(respuesta62.getFont().getName(),Font.BOLD,32)));
-        respuesta62.setVerticalAlignment(JLabel.CENTER);
-        respuesta62.setHorizontalAlignment(JLabel.CENTER);
-        
-        ContenedorRespuesta6.add(respuesta61);
-        ContenedorRespuesta6_2.add(respuesta62);
-        ContenedorPunto6.add(punto6);
-        ContenedorPunto6.add(punto6_2);
-        ContenedorPunto6.add(ContenedorRespuesta6);
-        ContenedorPunto6.add(ContenedorRespuesta6_2);
-        Punto6.add(ContenedorPunto6);
-        
-        //Creacion Punto 7
-        JPanel ContenedorPunto7 = new JPanel();
-        ContenedorPunto7.setBackground(new java.awt.Color(18, 119, 217));
-        ContenedorPunto7.setLayout(new GridLayout(2, 2, 5, 5));
-        ContenedorPunto7.setPreferredSize((new java.awt.Dimension(10, 10)));
-        
-        JLabel punto7 = new JLabel();
-        punto7.setText("<html><div style='text-align: center;'>Continente con más goles</div></html>");
-        punto7.setForeground(new java.awt.Color(249,249,250));
-        punto7.setFont((new Font(punto7.getFont().getName(),Font.BOLD,22)));
-        punto7.setVerticalAlignment(JLabel.TOP);
-        punto7.setHorizontalAlignment(JLabel.CENTER);
-        Border bordePunto7 = BorderFactory.createLineBorder(new java.awt.Color(18, 119, 217), 5);
-        punto7.setBorder(bordePunto7);
-        
-        JLabel punto7_2 = new JLabel();
-        punto7_2.setText("<html><div style='text-align: center;'>Continente con menos goles</div></html>");
-        punto7_2.setForeground(new java.awt.Color(249,249,250));
-        punto7_2.setFont((new Font(punto7_2.getFont().getName(),Font.BOLD,22)));
-        punto7_2.setVerticalAlignment(JLabel.TOP);
-        punto7_2.setHorizontalAlignment(JLabel.CENTER);
-        Border bordepunto7_2 = BorderFactory.createLineBorder(new java.awt.Color(18, 119, 217), 5);
-        punto7_2.setBorder(bordepunto7_2);
-        
-        JPanel ContenedorRespuesta7 = new JPanel();
-        ContenedorRespuesta7.setBackground(new java.awt.Color(249,249,250));
-        ContenedorRespuesta7.setPreferredSize((new java.awt.Dimension(10, 10)));
-        ContenedorRespuesta7.setLayout(new BorderLayout(0, 0));
-        Border bordeRespuesta7 = BorderFactory.createLineBorder(new java.awt.Color(18, 119, 217), 5);
-        ContenedorRespuesta7.setBorder(bordeRespuesta7);
-        
-        JPanel ContenedorRespuesta7_2 = new JPanel();
-        ContenedorRespuesta7_2.setBackground(new java.awt.Color(249,249,250));
-        ContenedorRespuesta7_2.setPreferredSize((new java.awt.Dimension(10, 10)));
-        ContenedorRespuesta7_2.setLayout(new BorderLayout(0, 0));
-        Border bordeRespuesta7_2 = BorderFactory.createLineBorder(new java.awt.Color(18, 119, 217), 5);
-        ContenedorRespuesta7_2.setBorder(bordeRespuesta7_2);
-        
-        JLabel respuesta71 = new JLabel();
-        respuesta71.setText("<html><div style='text-align: center;'>"+0+"</div></html>");
-        respuesta71.setForeground(new java.awt.Color(18, 119, 217));
-        respuesta71.setFont((new Font(respuesta71.getFont().getName(),Font.BOLD,22)));
-        respuesta71.setVerticalAlignment(JLabel.CENTER);
-        respuesta71.setHorizontalAlignment(JLabel.CENTER);
-        
-        JLabel respuesta72 = new JLabel();
-        respuesta72.setText("<html><div style='text-align: center;'>"+0+"</div></html>");
-        respuesta72.setForeground(new java.awt.Color(18, 119, 217));
-        respuesta72.setFont((new Font(respuesta72.getFont().getName(),Font.BOLD,22)));
-        respuesta72.setVerticalAlignment(JLabel.CENTER);
-        respuesta72.setHorizontalAlignment(JLabel.CENTER);
-        
-        ContenedorRespuesta7.add(respuesta71);
-        ContenedorRespuesta7_2.add(respuesta72);
-        ContenedorPunto7.add(punto7);
-        ContenedorPunto7.add(punto7_2);
-        ContenedorPunto7.add(ContenedorRespuesta7);
-        ContenedorPunto7.add(ContenedorRespuesta7_2);
-        Punto7.add(ContenedorPunto7);
+        for (int i = 0; i < 16; i++) {
+            //Creacion de puntos y ponerlas en layout box
+            JPanel Producto = new JPanel();
+            Producto.setLayout(new BoxLayout(Producto, BoxLayout.Y_AXIS));
+            resultadosPanel.add(Producto);
+
+            //Creacion Producto        
+            JPanel ContenedorProducto = new JPanel();
+            ContenedorProducto.setBackground(new java.awt.Color(1,50,3));
+            ContenedorProducto.setLayout(new BorderLayout());
+
+            JLabel ImgProducto = new JLabel();
+            ImageIcon icon = new ImageIcon(getClass().getResource("/resources/ImagenProductos/arroz.jpeg"));
+            Image image = icon.getImage();
+            Image newImage = image.getScaledInstance(100, 100, Image.SCALE_SMOOTH); // Ajusta el tamaño de la imagen
+            ImgProducto.setIcon(new ImageIcon(newImage));
+
+            JPanel Pro_Nombre_precio = new JPanel();
+            Pro_Nombre_precio.setLayout(new BoxLayout(Pro_Nombre_precio, BoxLayout.Y_AXIS));
+            Pro_Nombre_precio.setBackground(new java.awt.Color(2,126,7));
+
+            JLabel productoNombre = new JLabel();
+            productoNombre.setText("<html><div style='text-align: left;'>Maiz</div></html>");
+            productoNombre.setForeground(new java.awt.Color(249,249,250));
+            productoNombre.setFont((new Font(productoNombre.getFont().getName(),Font.BOLD,26)));
+
+            JLabel productoPrecio = new JLabel();
+            productoPrecio.setText("<html><div style='text-align: right;'>30000</div></html>");
+            productoPrecio.setForeground(new java.awt.Color(249,249,250));
+            productoPrecio.setFont((new Font(productoNombre.getFont().getName(),Font.BOLD,20)));
+
+            Pro_Nombre_precio.add(productoNombre);
+            Pro_Nombre_precio.add(productoPrecio);
+
+            ContenedorProducto.add(Pro_Nombre_precio, BorderLayout.SOUTH);
+            ContenedorProducto.add(ImgProducto, BorderLayout.CENTER);
+            Producto.add(ContenedorProducto);
+        }
         
         jPanelMain.removeAll();
         //jPanelMain.add(a);
