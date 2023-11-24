@@ -41,6 +41,8 @@ import proyectomundial.util.ConexionOracle;
 public class GUIManual extends JFrame {
 
     ConexionOracle conn = new ConexionOracle();
+    
+    
 
     // Matrix que permite almancenar la información de las selecciones futbol cargadas
     public String[][] selecciones = null;
@@ -100,6 +102,15 @@ public class GUIManual extends JFrame {
     private void initComponents() {
 
         conn.desconectar();
+        String[][] respuesta = conn.Sesion();
+        for (int i = 0; i < respuesta.length; i++) {
+            for (int j = 0; j < respuesta[i].length; j++) {
+                System.out.print(respuesta[i][j] + " ");
+            }
+            System.out.println();
+        }
+
+        
 
         // Inicializamos componentes del Menu Lateral
         jPanelLeft = new JPanel();

@@ -6,6 +6,8 @@ package proyectomundial.util;
 
 import java.sql.*;
 import java.sql.DriverManager;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -82,6 +84,51 @@ public class ConexionOracle {
         
         return table;
         
+    }
+    
+    public String[][] Sesion() {
+         String[][] usuarios = null;
+        try {
+            String sql = "SELECT \"usuario\", \"contrasena\" FROM usuarios_uss";
+            conectar();
+            
+            statement = conn.createStatement();
+            Result = statement.executeQuery(sql);
+            
+            ResultSetMetaData resultado = Result.getMetaData();
+            int cantidadColumnas = resultado.getColumnCount();
+    
+            
+            // Crear una lista para almacenar las filas
+        List<String[]> filas = new ArrayList<>();
+
+        while (Result.next()) {
+            String[] fila = new String[cantidadColumnas];
+            for (int i = 0; i < cantidadColumnas; i++) {
+                fila[i] = Result.getString(i + 1);
+            }
+            filas.add(fila);
+        }
+
+        // Convertir la lista a una matriz
+        String[][] matriz = new String[filas.size()][cantidadColumnas];
+        for (int i = 0; i < filas.size(); i++) {
+            matriz[i] = (String[]) filas.get(i);
+        }
+
+        usuarios = matriz;
+        
+        Result.close();
+        desconectar();
+
+        // Ahora, la matriz contiene la información de la base de datos
+ 
+            
+        } catch (Exception e) {
+            System.out.println("Error " + e);
+        }
+        
+        return usuarios;
     }
     
     
