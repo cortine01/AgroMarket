@@ -48,48 +48,11 @@ public class ConexionOracle {
         }
     }
     
-    public JTable consulta(String sentencia) {
-        DefaultTableModel modelo = new DefaultTableModel();
-        JTable table = new JTable();
-        table.setModel(modelo);
-        
-        try {
-            String sql = sentencia;
-            conectar();
-            
-            statement = conn.createStatement();
-            Result = statement.executeQuery(sql);
-            
-            ResultSetMetaData resultado = Result.getMetaData();
-            
-            int cantidadColumnas = resultado.getColumnCount();
-            
-            for (int i = 1; i <= cantidadColumnas; i++) {
-                modelo.addColumn(resultado.getColumnLabel(i));
-            }
-            
-            while(Result.next()) {
-                Object[] fila = new Object[cantidadColumnas];
-                for (int i = 0; i < cantidadColumnas; i++) {
-                    fila[i] = Result.getObject(i+1);
-                }
-                modelo.addRow(fila);
-            }
-            Result.close();
-            desconectar();
-            
-        } catch (Exception e) {
-            System.out.println("No funciono la consulta" + e);
-        }
-        
-        return table;
-        
-    }
     
-    public String[][] Sesion() {
+    public String[][] consulta(String sentencia) {
          String[][] usuarios = null;
         try {
-            String sql = "SELECT \"usuario\", \"contrasena\" FROM usuarios_uss";
+            String sql = sentencia;
             conectar();
             
             statement = conn.createStatement();

@@ -102,7 +102,7 @@ public class GUIManual extends JFrame {
     private void initComponents() {
 
         conn.desconectar();
-        String[][] respuesta = conn.Sesion();
+        String[][] respuesta = conn.consulta("SELECT \"usuario\", \"contrasena\" FROM usuarios_uss");
         for (int i = 0; i < respuesta.length; i++) {
             for (int j = 0; j < respuesta[i].length; j++) {
                 System.out.print(respuesta[i][j] + " ");
@@ -400,26 +400,6 @@ public class GUIManual extends JFrame {
         jPanelLeft.add(jPanelMenu);
         jPanelLeft.setPreferredSize((new java.awt.Dimension(220, 540)));
         jPanelLeft.setMaximumSize(jPanelLeft.getPreferredSize());
-    }
-
-    public void pintarTablaSelecciones() {
-
-        JTable table = conn.consulta("SELECT * FROM publicaciones_pbe");
-        table.setRowHeight(30);
-
-        JPanel seleccionesPanel = new JPanel();
-        seleccionesPanel.setLayout(new BoxLayout(seleccionesPanel, BoxLayout.Y_AXIS));
-        seleccionesPanel.setPreferredSize((new java.awt.Dimension(620, 410)));
-        seleccionesPanel.setMaximumSize(jPanelRight.getPreferredSize());
-
-        JScrollPane scrollPane = new JScrollPane(table);
-        seleccionesPanel.add(scrollPane);
-
-        jPanelMain.removeAll();
-        jPanelMain.add(seleccionesPanel, BorderLayout.PAGE_START);
-        jPanelMain.repaint();
-        jPanelMain.revalidate();
-
     }
 
     private void pintarMenuMisPublicaciones() {
@@ -1170,25 +1150,6 @@ public class GUIManual extends JFrame {
 
         jPanelMain.add(scrollResultadosPanel, BorderLayout.PAGE_START);
 
-        jPanelMain.repaint();
-        jPanelMain.revalidate();
-    }
-
-    public void pintarTablaResultados() {
-
-        JTable table = conn.consulta("SELECT * FROM transacciones_tse");
-        table.setRowHeight(30);
-
-        JPanel seleccionesPanel = new JPanel();
-        seleccionesPanel.setLayout(new BoxLayout(seleccionesPanel, BoxLayout.Y_AXIS));
-        seleccionesPanel.setPreferredSize((new java.awt.Dimension(620, 410)));
-        seleccionesPanel.setMaximumSize(jPanelRight.getPreferredSize());
-
-        JScrollPane scrollPane = new JScrollPane(table);
-        seleccionesPanel.add(scrollPane);
-
-        jPanelMain.removeAll();
-        jPanelMain.add(seleccionesPanel, BorderLayout.PAGE_START);
         jPanelMain.repaint();
         jPanelMain.revalidate();
     }
