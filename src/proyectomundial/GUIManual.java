@@ -346,8 +346,11 @@ public class GUIManual extends JFrame {
 
         JScrollPane scrollResultadosPanel = new JScrollPane(resultadosPanel);
         scrollResultadosPanel.setPreferredSize((new java.awt.Dimension(620, 540)));
+        
+        String matriz[][] =conn.consulta("SELECT pbe.\"titulo\", pbe.\"precio\", pin.\"imagen\" FROM publicaciones_pbe PBE\n" +
+"JOIN publicacion_imagen_pin PIN ON (pbe.\"id\" = PIN.\"PBE_id\")");
 
-        for (int i = 0; i < 16; i++) {
+        for (int i = 0; i < matriz.length; i++) {
             //Creacion de puntos y ponerlas en layout box
             JPanel Producto = new JPanel();
             Producto.setLayout(new BoxLayout(Producto, BoxLayout.Y_AXIS));
@@ -359,7 +362,7 @@ public class GUIManual extends JFrame {
             ContenedorProducto.setLayout(new BorderLayout());
 
             JLabel ImgProducto = new JLabel();
-            ImageIcon icon = new ImageIcon(getClass().getResource("/resources/ImagenProductos/arroz.jpeg"));
+            ImageIcon icon = new ImageIcon(getClass().getResource(matriz[i][2]));
             Image image = icon.getImage();
             Image newImage = image.getScaledInstance(100, 100, Image.SCALE_SMOOTH); // Ajusta el tamaño de la imagen
             ImgProducto.setIcon(new ImageIcon(newImage));
@@ -369,12 +372,12 @@ public class GUIManual extends JFrame {
             Pro_Nombre_precio.setBackground(new java.awt.Color(2, 126, 7));
 
             JLabel productoNombre = new JLabel();
-            productoNombre.setText("<html><div style='text-align: left;'>Maiz</div></html>");
+            productoNombre.setText("<html><div style='text-align: left;'>"+matriz[i][0]+"</div></html>");
             productoNombre.setForeground(new java.awt.Color(249, 249, 250));
             productoNombre.setFont((new Font(productoNombre.getFont().getName(), Font.BOLD, 26)));
 
             JLabel productoPrecio = new JLabel();
-            productoPrecio.setText("<html><div style='text-align: right;'>30000</div></html>");
+            productoPrecio.setText("<html><div style='text-align: right;'>"+matriz[i][1]+"</div></html>");
             productoPrecio.setForeground(new java.awt.Color(249, 249, 250));
             productoPrecio.setFont((new Font(productoNombre.getFont().getName(), Font.BOLD, 20)));
 
