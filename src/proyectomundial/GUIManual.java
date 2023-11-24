@@ -2,6 +2,7 @@ package proyectomundial;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import static java.awt.Component.LEFT_ALIGNMENT;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -245,18 +246,6 @@ public class GUIManual extends JFrame {
     
     private void accionPublicaciones() {
         //pintarTablaSelecciones();
-        JTextArea a = new JTextArea();
-        a.setText("En esta sección, teniendo en cuenta los datos que fueron cargados en la matriz de resultados \n"
-                + "se deben mostrar los siguientes datos:\n\n"
-                + "1. Número de partidos cargados \n"
-                + "2. Promedio de goles por partido \n"
-                + "3. Partido con más goles y partido con menos goles \n"
-                + "4. Número de partidos dónde hubo un ganador y número de partidos dónde hubo empate \n"
-                + "5. Selcción o selecciones con más goles y con menos goles \n"
-                + "6. Selección con más puntos y menos puntos \n"
-                + "7. Continente o continentes con más goles y menos goles \n"
-                + "8. Clasificados por cada grupo (Clasifican los dos primeros equipos de cada grupo) \n\n"
-                + "Utilice los diferentes componentes gráficos para construir un dashboard lo más estético posible");
         
         //Crear el Panel que contiene todo y ponerle 3 columnas
         JPanel resultadosPanel = new JPanel();
@@ -375,27 +364,8 @@ public class GUIManual extends JFrame {
     }
     
     
-    /**
-     * Función que se ejecuta cuando el usuario hace click sobre la opción de navegación Resultados
-     * Permite ver la lista de resultados que se encuentran cargadas en la aplicación. 
-     * Si la lista de resultados en vacía, muestra un botón que permite cargar un archivo CSV
-     * con la información de los resultados
-     */
+    
     private void accionMisPublicaciones() {
-        //pintarTablaResultados();
-        JTextArea a = new JTextArea();
-        a.setText("En esta sección, teniendo en cuenta los datos que fueron cargados en la matriz de resultados \n"
-                + "se deben mostrar los siguientes datos:\n\n"
-                + "1. Número de partidos cargados \n"
-                + "2. Promedio de goles por partido \n"
-                + "3. Partido con más goles y partido con menos goles \n"
-                + "4. Número de partidos dónde hubo un ganador y número de partidos dónde hubo empate \n"
-                + "5. Selcción o selecciones con más goles y con menos goles \n"
-                + "6. Selección con más puntos y menos puntos \n"
-                + "7. Continente o continentes con más goles y menos goles \n"
-                + "8. Clasificados por cada grupo (Clasifican los dos primeros equipos de cada grupo) \n\n"
-                + "Utilice los diferentes componentes gráficos para construir un dashboard lo más estético posible");
-        
         //Crear el Panel que contiene todo y ponerle 3 columnas
         JPanel resultadosPanel = new JPanel();
         resultadosPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
@@ -494,168 +464,71 @@ public class GUIManual extends JFrame {
      * Revise el proceso que se siguen en los demás métodos para poder actualizar la información de los paneles
      */
         private void accionNotificaciones() {
+        //Crear el Panel que contiene todo y ponerle 3 columnas
+        JPanel resultadosPanel = new JPanel();
+        resultadosPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
+        resultadosPanel.setPreferredSize(new Dimension(600, 540));
         
         
-        JTextArea a = new JTextArea();
-        a.setText("En esta sección, teniendo en cuenta los datos que fueron cargados en la matriz de selecciones \n"
-                + "se deben mostrar los siguientes datos:\n\n"
-                + "1. Total de selecciones Cargadas \n"
-                + "2. Número de selecciones por continente (Se puede usar una tabla para pintar esto) \n"
-                + "3. Cantidad de nacionalidades diferentes de los directores técnicos \n"
-                + "4. Ranking de nacionalidades de directores técnicos \n\n"
-                + "Utilice los diferentes componentes gráficos para construir un dashboard lo más estético posible");
+        JScrollPane scrollResultadosPanel = new JScrollPane(resultadosPanel);
+        scrollResultadosPanel.setPreferredSize((new java.awt.Dimension(620, 540)));
         
-        //JPanel form = new JPanel();
-        //form.setLayout(new GridLayout(2, 5, 3, 5));
-        
-        JPanel seleccionesPanel = new JPanel();
-        
-        seleccionesPanel.setLayout(new GridLayout(2, 2, 5, 5));
-        seleccionesPanel.setPreferredSize((new java.awt.Dimension(620, 410)));
-        seleccionesPanel.setMaximumSize( jPanelRight.getPreferredSize());
-        
-        JPanel Punto1 = new JPanel();
-        Punto1.setLayout(new BoxLayout(Punto1, BoxLayout.Y_AXIS));
-        
-        JPanel Punto2 = new JPanel();
-        Punto2.setLayout(new BoxLayout(Punto2, BoxLayout.Y_AXIS));
-        
-        JPanel Punto3 = new JPanel();
-        Punto3.setLayout(new BoxLayout(Punto3, BoxLayout.Y_AXIS));
-        
-        JPanel Punto4 = new JPanel();
-        Punto4.setLayout(new BoxLayout(Punto4, BoxLayout.Y_AXIS));
-        
-        //Punto 1
-        JPanel ContenedorPunto1 = new JPanel();
-        ContenedorPunto1.setBackground(new java.awt.Color(0,24,47));
-        ContenedorPunto1.setLayout(new FlowLayout((int)LEFT_ALIGNMENT));
-        
-        JLabel label = new JLabel();
-        label.setText(" Número de selecciones");
-        label.setForeground(new java.awt.Color(249,249,250));
-        label.setFont((new Font(label.getFont().getName(),Font.BOLD,26)));
-        label.setVerticalAlignment(JLabel.TOP);
-        label.setHorizontalAlignment(JLabel.LEFT);
-        
-        JLabel label_2 = new JLabel();
-        label_2.setText(" cargadas:");
-        label_2.setForeground(new java.awt.Color(249,249,250));
-        label_2.setFont((new Font(label_2.getFont().getName(),Font.BOLD,26)));
-        label_2.setVerticalAlignment(JLabel.TOP);
-        label_2.setHorizontalAlignment(JLabel.LEFT);
-        
-        JPanel ContenedorRespuesta1 = new JPanel();
-        ContenedorRespuesta1.setBackground(new java.awt.Color(249,249,250));
-        ContenedorRespuesta1.setPreferredSize((new java.awt.Dimension(297, 114)));
-        ContenedorRespuesta1.setLayout(new BorderLayout(0, 0));
-        
-        JLabel Respuesta1 = new JLabel();
-        Respuesta1.setText("12"); //El Texto Va aqui
-        Respuesta1.setForeground(new java.awt.Color(0,24,47));
-        Respuesta1.setFont((new Font(label.getFont().getName(),Font.BOLD,80)));
-        Respuesta1.setVerticalAlignment(JLabel.CENTER);
-        Respuesta1.setHorizontalAlignment(JLabel.CENTER);
-        ContenedorRespuesta1.add(Respuesta1);
-        
-        ContenedorPunto1.add(label);
-        ContenedorPunto1.add(label_2);
-        ContenedorPunto1.add(ContenedorRespuesta1);
-        Punto1.add(ContenedorPunto1);
-        
-        //punto2
-        /*
-        String[][] Respuesta2Relleno = null;      
-        
-        Punto2.add(
-        crearGraficaPie(Respuesta2Relleno,
-        "Cantidad de selecciones por continente",
-        "Selecciones",
-        "Cantidad",
-        PlotOrientation.VERTICAL,
-        false,
-        false,
-        false,
-        new java.awt.Color(9,72,132)
-        ));
-        */
-        
-        //Punto3        
-        JPanel ContenedorPunto2 = new JPanel();
-        ContenedorPunto2.setBackground(new java.awt.Color(9,72,132));
-        ContenedorPunto2.setLayout(new FlowLayout((int)LEFT_ALIGNMENT));
-        
-        JLabel label3 = new JLabel();
-        label3.setText(" Numero de nacionalidades");
-        label3.setForeground(new java.awt.Color(249,249,250));
-        label3.setFont((new Font(label3.getFont().getName(),Font.BOLD,18)));
-        label3.setVerticalAlignment(JLabel.TOP);
-        label3.setHorizontalAlignment(JLabel.LEFT);
-        
-        JLabel label3_2 = new JLabel();
-        label3_2.setText(" diferentes entre los");
-        label3_2.setForeground(new java.awt.Color(249,249,250));
-        label3_2.setFont((new Font(label3_2.getFont().getName(),Font.BOLD,18)));
-        label3_2.setVerticalAlignment(JLabel.TOP);
-        label3_2.setHorizontalAlignment(JLabel.LEFT);
-        
-        JLabel label3_3 = new JLabel();
-        label3_3.setText(" directores tecnicos:");
-        label3_3.setForeground(new java.awt.Color(249,249,250));
-        label3_3.setFont((new Font(label3_3.getFont().getName(),Font.BOLD,18)));
-        label3_3.setVerticalAlignment(JLabel.TOP);
-        label3_3.setHorizontalAlignment(JLabel.LEFT);
-        
-        JPanel ContenedorRespuesta2 = new JPanel();
-        ContenedorRespuesta2.setBackground(new java.awt.Color(249,249,250));
-        ContenedorRespuesta2.setPreferredSize((new java.awt.Dimension(297, 105)));
-        ContenedorRespuesta2.setLayout(new BorderLayout(0, 0));
-        
-        JLabel Respuesta3 = new JLabel();
-        Respuesta3.setText("23"); //Texto va aqui
-        Respuesta3.setForeground(new java.awt.Color(0,24,47));
-        Respuesta3.setFont((new Font(label3.getFont().getName(),Font.BOLD,80)));
-        Respuesta3.setVerticalAlignment(JLabel.CENTER);
-        Respuesta3.setHorizontalAlignment(JLabel.CENTER);
-        ContenedorRespuesta2.add(Respuesta3);
-        
-        ContenedorPunto2.add(label3);
-        ContenedorPunto2.add(label3_2);
-        ContenedorPunto2.add(label3_3);
-        ContenedorPunto2.add(ContenedorRespuesta2);
-        Punto3.add(ContenedorPunto2);
-        
-        /*
-        //Punton4        
-        String[][] Respuesta4Relleno = null;      
-        
-        Punto4.add(
-        crearGraficaBarras(Respuesta4Relleno,
-        "Ranking de nacionalidades de directores técnicos",
-        "Directores Tecnicos",
-        "Cantidad",
-        PlotOrientation.VERTICAL,
-        false,
-        false,
-        false,
-        new java.awt.Color(18,119,217)
-        ));
-        */
-        
-        //experimento.setText("a ");
-        seleccionesPanel.add(Punto1);
-        seleccionesPanel.add(Punto2);
-        seleccionesPanel.add(Punto3);
-        seleccionesPanel.add(Punto4);
-        
+        for (int i = 0; i < 5; i++) {
+            //Creacion de puntos y ponerlas en layout box
+            JPanel Producto = new JPanel();
+            Producto.setLayout(new BorderLayout());
+            Producto.setPreferredSize(new Dimension(250, 150)); // Tamaño fijo
+
+            //Creacion Producto        
+            JPanel ContenedorNotificacion = new JPanel();
+            ContenedorNotificacion.setBackground(new java.awt.Color(1,50,3));
+            ContenedorNotificacion.setLayout(new BoxLayout(ContenedorNotificacion, BoxLayout.X_AXIS));
+
+            JLabel ImgProducto = new JLabel();
+            ImageIcon icon = new ImageIcon(getClass().getResource("/resources/ImagenProductos/arroz.jpeg"));
+            Image image = icon.getImage();
+            Image newImage = image.getScaledInstance(60, 60, Image.SCALE_SMOOTH); // Ajusta el tamaño de la imagen
+            ImgProducto.setIcon(new ImageIcon(newImage));
+
+            JPanel Noti_Usario_fecha = new JPanel();
+            Noti_Usario_fecha.setLayout(new BoxLayout(Noti_Usario_fecha, BoxLayout.Y_AXIS));
+            Noti_Usario_fecha.setBackground(new java.awt.Color(2,126,7));
+
+            JLabel NotificacionUsuario = new JLabel();
+            NotificacionUsuario.setText("<html><div style='text-align: left;'>Este Usuario esta interesado en tu producto ¡Contactalo!</div></html>");
+            NotificacionUsuario.setForeground(new java.awt.Color(249,249,250));
+            NotificacionUsuario.setFont((new Font(NotificacionUsuario.getFont().getName(),Font.BOLD,12)));
+            
+            JPanel ContenedorFechaNotificacion = new JPanel();
+            ContenedorFechaNotificacion.setBackground(new java.awt.Color(255, 0, 63));
+            
+            JLabel NotificacionFecha = new JLabel();
+            NotificacionFecha.setText("<html><div style='text-align: right;'>17-sep-2023</div></html>");
+            NotificacionFecha.setForeground(new java.awt.Color(249,249,250));
+            NotificacionFecha.setFont((new Font(NotificacionUsuario.getFont().getName(),Font.BOLD,14)));
+            ContenedorFechaNotificacion.add(NotificacionFecha);
+
+            Noti_Usario_fecha.add(NotificacionUsuario);
+            Noti_Usario_fecha.add(ContenedorFechaNotificacion);
+
+            ContenedorNotificacion.add(ImgProducto, BorderLayout.CENTER);
+            ContenedorNotificacion.add(Noti_Usario_fecha, BorderLayout.SOUTH);
+            Producto.add(ContenedorNotificacion);
+            
+            // Agregar un espacio entre los productos
+            ContenedorNotificacion.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
+            Producto.add(ContenedorNotificacion);
+            resultadosPanel.add(Producto);
+        }
         
         jPanelMain.removeAll();
         //jPanelMain.add(a);
         
-        jPanelMain.add(seleccionesPanel, BorderLayout.PAGE_START);
+        jPanelMain.add(scrollResultadosPanel, BorderLayout.PAGE_START);
         
         jPanelMain.repaint();
-        jPanelMain.revalidate();        
+        jPanelMain.revalidate();
     }
     
         
